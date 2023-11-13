@@ -12,7 +12,13 @@ Each proving workload is allocated to one or more prover nodes in the active pro
 
 The user pays for a set amount of cycles per prover and the chosen provers run the program either until the program completes, in which case they return the output, or for the maximum paid for cycles without completing, in which case they return fail.
 
-A prover can choose to decline a workload if they are at capacity or bandwidth constrained. If a workload is declined by at least one allocated prover, any prover in the active prover set can contribute a proof, but only the first of these will be rewarded and the reward schedule does not change. For example, a workload is allocated to 3 provers and 1 of them declines. The reward for a single proof in that group is then up for grabs and any prover can contribute a proof and be paid out as if they were allocated that workload. However, after 3 proofs have been genearated, two via allocation and one via open market, any subsequent proofs generated will not get a reward.
+A prover can choose to decline a workload if they are at capacity or bandwidth constrained. If a workload is declined by at least one allocated prover, any prover in the active prover set can contribute a proof, but only the first of these will be rewarded and the reward schedule does not change. For example, a workload is allocated to 3 provers and 1 of them declines. The reward for a single proof in that group is then up for grabs and any prover can contribute a proof and be paid out as if they were allocated that workload. However, after 3 proofs have been generated, two via allocation and one via open market, any subsequent proofs generated will not get a reward.
+
+**Copy Protection**
+
+Once a prover generates a proof for a given workload, the proof is encrypted with a secret key. This key is then further encrypted by the public key of the user that broadcast the workload and a temporary prover key, leading to two encrypted versions of the proof. These encrypted proofs are then broadcast to the mempool. The end-user can then immediately pick up and decrypt the proof for use. Once the cycles have been exhausted or all the proofs have been generated and broadcast, the prover then broadcasts the temporary prover key so the validators can decrypt the proof and verify. \
+\
+This mechanism prevents provers from copying completed proofs from the mempool and broadcasting them as their own, while ensuring the end-user receives proofs as soon as they are finished. This mechanism does delay verification, but in practice this delay has a negligible effect on speed of finality.&#x20;
 
 **Prover Incentives**
 
