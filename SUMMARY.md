@@ -23,3 +23,10 @@
 * [Bridges](usecases/bridges.md)
 * [Verifiable RPC](usecases/verifiable-rpc.md)
 * [ZkML](usecases/zkml.md)
+
+## Misc
+
+* [FAQ](misc/faq.md)
+* [Website](https://www.gevulot.com/)
+* [Github](https://github.com/gevulotnetwork)
+* [Twitter](https://twitter.com/gevulot\_network)
