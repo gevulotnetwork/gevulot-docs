@@ -8,4 +8,6 @@ All proofs are verified by 2/3 of network validators before they are included in
 
 **Validator Incentives**
 
-Validators are rewarded via a traditional block reward and through a small transaction fee paid by the user. This transaction fee is distinct from the concept of cycle fees, which pay for prover compute time and its primary role is to prevent spam.
+Validators are rewarded via a traditional block reward and through a small transaction fee paid by the user. This transaction fee is distinct from the concept of cycle fees, which pay for prover compute time and its primary role is to prevent spam.\
+\
+Validators also get a reward for finding an invalid proof. In order to prevent griefing attacks, validators can not be slashed for faulty verifications. This means that a viable strategy for validators is to assume all proofs are valid and never actually verify any proofs. In order to prevent this, we reward finding invalid proofs (with an honest majority assumption) and thus incentivize all validators to verify all proofs.

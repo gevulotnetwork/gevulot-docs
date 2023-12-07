@@ -23,6 +23,7 @@
 * [Bridges](usecases/bridges.md)
 * [Verifiable RPC](usecases/verifiable-rpc.md)
 * [ZkML](usecases/zkml.md)
+* [ZkFHE](usecases/zkfhe.md)
 
 ## Misc
 
