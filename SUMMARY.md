@@ -17,7 +17,7 @@
 
 ## Usecases
 
-* [Validity Rollups](usecases/outsourced-proving.md)
+* [Validity Rollups](usecases/validity-rollups.md)
 * [Proof Aggregation](usecases/proof-aggregation.md)
 * [ZkVMs](usecases/zkvms.md)
 * [Bridges](usecases/bridges.md)
