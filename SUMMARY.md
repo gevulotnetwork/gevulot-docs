@@ -2,10 +2,6 @@
 
 * [Gevulot Docs](README.md)
 
-## Devnet
-
-* [Page 1](devnet/page-1.md)
-
 ## Programs
 
 * [Overview](programs/overview.md)
