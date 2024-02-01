@@ -1,6 +1,6 @@
 # Development
 
-It is very easy to develop or modify a program to run in Gevulot as a prover or verifier. Almost any program that can be compiled as an ELF binary for the Linux x86\_64 architecture works, but in order to integrate the program with Gevulot and for it to be able to handle received workloads, it needs to work with the specified [gRPC protocol](https://github.com/gevulotnetwork/gevulot/blob/proto/crates/shim/proto/vm\_service.proto).
+It is very easy to develop or modify a program to run in Gevulot as a prover or verifier. Almost any program that can be compiled as an ELF binary for the Linux x86\_64 architecture works, but in order to integrate the program with Gevulot and for it to be able to handle received workloads, it needs to work with the specified [gRPC protocol](https://github.com/gevulotnetwork/gevulot/blob/main/crates/shim/proto/vm\_service.proto).
 
 ### Running environment
 
@@ -15,9 +15,9 @@ The program running environment in a Nanos unikernel is very similar to a normal
 
 ### Shim
 
-To ease running of existing programs in Gevulot, there is a helper library called [**shim**](https://github.com/gevulotnetwork/gevulot/tree/proto/crates/shim) that provides some simple functionality to integrate the program with Gevulot.
+To ease running of existing programs in Gevulot, there is a helper library called [**shim**](https://github.com/gevulotnetwork/gevulot/tree/main/crates/shim) that provides some simple functionality to integrate the program with Gevulot.
 
-Shim is written in Rust, but it has [C FFI bindings](https://github.com/gevulotnetwork/gevulot/tree/proto/crates/shim-ffi) to use in programs written in C/C++ or to allow creation of bindings to other programming languages.
+Shim is written in Rust, but it has [C FFI bindings](https://github.com/gevulotnetwork/gevulot/tree/main/crates/shim-ffi) to use in programs written in C/C++ or to allow creation of bindings to other programming languages.
 
 ### Rust
 
@@ -88,7 +88,7 @@ C/C++ programs are nearly identical with Rust programs regarding the changes nee
 
 #### 1. Include the header file for FFI bindings
 
-[shim.h](https://github.com/gevulotnetwork/gevulot/blob/proto/crates/shim-ffi/shim.h) provides function definitions for **gevulot-shim-ffi**.
+[shim.h](https://github.com/gevulotnetwork/gevulot/blob/main/crates/shim-ffi/shim.h) provides function definitions for **gevulot-shim-ffi**.
 
 #### 2. Provide callback function for running a task
 
