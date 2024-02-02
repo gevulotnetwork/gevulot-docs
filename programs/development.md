@@ -15,7 +15,7 @@ The program running environment in a Nanos unikernel is very similar to a normal
 
 ### Shim
 
-To ease running of existing programs in Gevulot, there is a helper library called [**shim**](https://github.com/gevulotnetwork/gevulot/tree/main/crates/shim) that provides some simple functionality to integrate the program with Gevulot.
+To ease the running of existing programs in Gevulot, there is a helper library called [**shim**](https://github.com/gevulotnetwork/gevulot/tree/main/crates/shim) that provides some simple functionality to integrate the program with Gevulot.
 
 Shim is written in Rust, but it has [C FFI bindings](https://github.com/gevulotnetwork/gevulot/tree/main/crates/shim-ffi) to use in programs written in C/C++ or to allow creation of bindings to other programming languages.
 
@@ -84,7 +84,7 @@ Compile the FFI crate to get **libgevulot\_shim\_ffi.so** that is then linked in
 
 #### Needed changes for existing programs
 
-C/C++ programs are nearly identical with Rust programs regarding the changes needed for existing programs. There are couple small differences in the program flow due to differences in memory management.
+C/C++ programs are nearly identical with Rust programs regarding the changes needed for existing programs. There are a couple of small differences in the program flow due to differences in memory management.
 
 #### 1. Include the header file for FFI bindings
 
@@ -153,7 +153,7 @@ int main() {
 
 #### Differences to Rust shim
 
-Due to memory management there are a couple differences to the Rust version in **gevulot-shim-ffi** C/C++ interface:
+Due to memory management there are a couple of differences to the Rust version in **gevulot-shim-ffi** C/C++ interface:
 
 * TaskResult object is created with **new\_task\_result(data, len)** function.
 * Files that are communicated back to Gevulot node, are added with **add\_file\_to\_result(task\_result, file\_name)** function.

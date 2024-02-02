@@ -16,7 +16,7 @@ Given that proving is not re-executed like state transitions in other blockchain
 \
 However, it is possible for the network to ensure that provers both a) cannot make money by acting dishonestly and b) there is a cost to acting dishonestly. The specific implementation that achieves high prover honesty, while minimizing the associated cost overhead for the network is an optimization problem where the parameters are hard to predict in advance. Given this, we are starting with a relatively naive structure and iterating on the mechanisms as network dynamics begin to emerge in devnet, testnet and beyond.\
 \
-Currently we are planning on utilizing the following mechanisms at the outset:
+Currently, we are planning on utilizing the following mechanisms at the outset:
 
 1. Provers can only make money by completing proofs. If a proof fails to be generated for a given workload for whatever reason, the provers do not get a network reward, nor do they receive cycle fees (these are burned).&#x20;
 2. Provers are randomly allocated proof-of-work workloads which must be completed to remain in the active prover set. Completing these workloads does not yield any reward and so they function as a way to increase the cost of being dishonest.
@@ -48,6 +48,6 @@ Gevulot programs are arbitrary user-generated code. They are not explicitly cons
 
 To be clear, a user can deploy a program which does not do these things. It just won't work. \
 \
-A faulty prover can result in proofs not being produced when desired or produced proofs being unverifiable. A faulty verifier, on the other hand, can mean that proofs are not able to be verified by some or all validators. In this instance provers can also not be rewarded and so are incentivized to decline workloads for that program. We are considering implementing an out-of-protocol flag in the node, which would be triggered if a valid proof was not verified after which the node would automatically decline workloads for that program.\
+A faulty prover can result in proofs not being produced when desired or produced proofs being unverifiable. A faulty verifier, on the other hand, can mean that proofs are not able to be verified by some or all validators. In this instance, provers can also not be rewarded and so are incentivized to decline workloads for that program. We are considering implementing an out-of-protocol flag in the node, which would be triggered if a valid proof was not verified after which the node would automatically decline workloads for that program.\
 \
 **Do you have a question you'd like to see answered here? Message us on** [**X**](https://twitter.com/gevulot\_network)**.**
