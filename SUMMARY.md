@@ -2,17 +2,17 @@
 
 * [Gevulot Docs](README.md)
 
-## Programs
-
-* [Overview](programs/overview.md)
-* [Development](programs/development.md)
-* [Unikernel](programs/unikernel.md)
-* [Fees](programs/fees.md)
-
 ## DEVNET
 
 * [Overview](devnet/overview.md)
 * [JSON-RPC](devnet/json-rpc.md)
+* [Development](devnet/development.md)
+
+## Programs
+
+* [Overview](programs/overview.md)
+* [Unikernel](programs/unikernel.md)
+* [Fees](programs/fees.md)
 
 ## Network
 

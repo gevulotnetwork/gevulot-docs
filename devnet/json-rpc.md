@@ -2,37 +2,37 @@
 
 ## Introduction
 
-Gevulot devnet provides minimalistic JSON-RPC API for end user interfacing. It allows for creation and observation of transactions.
+Gevulot devnet provides a minimalist JSON-RPC API for end user interfacing. It allows for the creation and observation of transactions.
 
 ## Operations
 
 ### sendTransaction
 
-`sendTransaction` operation allows user to submit a transaction for execution in Gevulot devnet. Currently supported transaction types are `Deploy` and `Run`.
+`sendTransaction` operations allow users to submit a transaction for execution. Currently the devnet supports `Deploy` and `Run` transaction types.
 
 
 
 ### getTransaction
 
-`getTransaction` operation allows user to fetch any transaction for a given hash. The return value contains all details of the transaction, excluding possibly related file data.
+`getTransaction` operations allow users to fetch any transaction for a given hash. The return value contains all details of a transaction, excluding related file data.
 
 
 
 ### getTransactionTree
 
-`getTransactionTree` returns a full transaction tree for a given hash that is part of an execution of `Run` transaction.
+`getTransactionTree` returns a full transaction tree for a given hash that is part of an execution of a `Run` transaction.
 
-`Run` transaction contains a workflow that is executed in order to generate a proof and then verify it. Each step results with its own transaction referring to parent transaction. Result of the whole execution is a tree of transactions.
+`Run` transactions contain a workflow that is executed to generate a proof and then verify it. Each step results in a new transaction referring to the parent transaction. The result of a whole execution is a tree of transactions.
 
 
 
 ## Rust Client
 
-Gevulot node crate provides types for easy working with transactions and an RPC client to communicate with the servers.
+The Gevulot node crate provides types for easily working with transactions and an RPC client to communicate with the servers.
 
 ### Construct client
 
-Client construction is pretty simple:
+Client construction is simple:
 
 ```rust
 use gevulot_node::rpc_client::RpcClient;
@@ -47,7 +47,7 @@ let client = RpcClient::new(url);
 
 #### Deployment
 
-Assume you have built program images for prover & verifier. In order to deploy them, files must be available from an HTTP server and a BLAKE3 checksum must be calculated for them.
+This section assumes you have built program images for prover & verifier as described in the [Development](development.md) section. In order to deploy them, files must be available from an HTTP server and a BLAKE3 checksum must be calculated for them.
 
 Given those details, a deploy transaction can be built as follows:
 
@@ -99,9 +99,9 @@ fn construct_deployment_tx(private_key: &#x26;SecretKey, name: &#x26;str, prover
 
 #### Run transaction
 
-When prover and verifier has been deployed, they can be used to generate proofs and get verifications of them.
+When a prover and a verifier have been deployed, they can be used to generate and verify proofs.
 
-`Run` transaction can be created in a following way:
+`Run` transaction can be created in the following way:
 
 ```rust
 use gevulot_node::{
@@ -143,7 +143,7 @@ let tx = Transaction::new(
 
 ### Send transaction
 
-Sending transaction is also straightforward:
+Sending transactions is also straightforward:
 
 ```rust
 client
@@ -170,7 +170,7 @@ if tx.is_some() {
 
 ### Get transaction tree
 
-Fetch transaction tree and print each transaction:
+Fetch a transaction tree and print each transaction:
 
 ```rust
 fn print_tx_tree(tree: &TransactionTree, indentation: u16) {
@@ -202,7 +202,7 @@ fn fetch_and_print_tx_tree() {
 
 ## Full E2E example
 
-Gevulot node repo contains test code for full e2e test on deploying prover & verifier and then executing a `Run` transaction with them:
+The Gevulot node repo contains test code for full e2e test of deploying a prover & verifier and then executing a `Run` transaction:
 
 {% embed url="https://github.com/gevulotnetwork/gevulot/blob/main/crates/tests/e2e-tests/src/main.rs" %}
 gevulot/crates/tests/e2e-tests/src/main.rs
