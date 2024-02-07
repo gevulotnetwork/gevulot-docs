@@ -1,0 +1,211 @@
+# JSON-RPC
+
+## Introduction
+
+Gevulot devnet provides minimalistic JSON-RPC API for end user interfacing. It allows for creation and observation of transactions.
+
+## Operations
+
+### sendTransaction
+
+`sendTransaction` operation allows user to submit a transaction for execution in Gevulot devnet. Currently supported transaction types are `Deploy` and `Run`.
+
+
+
+### getTransaction
+
+`getTransaction` operation allows user to fetch any transaction for a given hash. The return value contains all details of the transaction, excluding possibly related file data.
+
+
+
+### getTransactionTree
+
+`getTransactionTree` returns a full transaction tree for a given hash that is part of an execution of `Run` transaction.
+
+`Run` transaction contains a workflow that is executed in order to generate a proof and then verify it. Each step results with its own transaction referring to parent transaction. Result of the whole execution is a tree of transactions.
+
+
+
+## Rust Client
+
+Gevulot node crate provides types for easy working with transactions and an RPC client to communicate with the servers.
+
+### Construct client
+
+Client construction is pretty simple:
+
+```rust
+use gevulot_node::rpc_client::RpcClient;
+
+// ...
+
+let url = "http://node.address.example.com:9944"
+let client = RpcClient::new(url);
+```
+
+### Build a transaction
+
+#### Deployment
+
+Assume you have built program images for prover & verifier. In order to deploy them, files must be available from an HTTP server and a BLAKE3 checksum must be calculated for them.
+
+Given those details, a deploy transaction can be built as follows:
+
+<pre class="language-rust"><code class="lang-rust"><strong>use gevulot_node::{
+</strong>    types::{
+        transaction::{Payload, ProgramMetadata},
+        Hash, Transaction,
+    },
+};
+use libsecp256k1::SecretKey;
+use std::path::Path;
+<strong>
+</strong><strong>fn compute_file_hash(path: &#x26;Path) -> Hash {
+</strong>        // First compute BLAKE3 hash for the program image file.
+        let mut hasher = blake3::Hasher::new();
+        let fd = std::fs::File::open(&#x26;img_file).expect("open");
+        hasher.update_reader(fd).expect("checksum");
+        hasher.finalize()
+}
+
+
+fn build_program_metadata(name: &#x26;str, img_path: &#x26;Path) -> ProgramMetadata {
+        let img_file_name = img_path.file_name().unwrap().to_str().unwrap().to_string();
+        
+        // Then construct the program metadata struct.
+        let mut prover_program_metadata = ProgramMetadata {
+                name: "example-prover".to_string(),
+                hash: Hash::default(),
+                image_file_name,
+                image_file_url: format!("http://my.example.com/images/{}", img_file_name),
+                image_file_checksum: compute_file_hash(img_path),
+        };
+
+        // Compute the program hash.
+        program_metadata.update_hash();
+        
+        program_metadata
+}
+
+fn construct_deployment_tx(private_key: &#x26;SecretKey, name: &#x26;str, prover_img_file: &#x26;Path, verifier_img_file: &#x26;Path) -> Transaction {
+        // Construct the transaction with deployment payload.
+        Transaction::new(Payload::Deployment{
+            name: name.to_string(),
+            prover: build_program_metadata(format!("{}-prover", name), prover_img_file),
+            verifier: build_program_metadata(format!("{}-verifier", name), verifier_img_file),
+        }, &#x26;private_key)
+}
+</code></pre>
+
+#### Run transaction
+
+When prover and verifier has been deployed, they can be used to generate proofs and get verifications of them.
+
+`Run` transaction can be created in a following way:
+
+```rust
+use gevulot_node::{
+    types::{
+        transaction::{Payload, ProgramData, Workflow, WorkflowStep},
+        Transaction,
+    },
+};
+
+// Assume prover_hash & verifier_hash are variables to deployed prover and verifier.
+let proving_step = WorkflowStep {
+    program: *prover_hash,
+    args: vec!["--prover-arg".to_string(), "arg value".to_string()],
+    inputs: vec![ProgramData::Input {
+        file_name: "proof_inputs.dat".to_string(),
+        file_url: "http://rollup.example.com/proof/inputs/3212".to_string(),
+        file_checksum: "886ace0f0ea0ddd53fca7f733586226b6ddbee7bcb769be71633d06e61ba36bc".to_string(),
+    }],
+};
+
+let verifying_step = WorkflowStep {
+    program: *verifier_hash,
+    args: vec!["--nonce".to_string(), nonce.to_string()],
+    inputs: vec![ProgramData::Output {
+        source_program: *prover_hash,
+        file_name: "/workspace/proof.dat".to_string(),
+    }],
+};
+
+let tx = Transaction::new(
+    Payload::Run {
+        workflow: Workflow {
+            steps: vec![proving_step, verifying_step],
+        },
+    },
+    &private_key,
+);
+```
+
+### Send transaction
+
+Sending transaction is also straightforward:
+
+```rust
+client
+    .send_transaction(&tx)
+    .await
+    .expect("send_transaction");
+```
+
+### Get transaction
+
+Fetching known transaction:
+
+```rust
+let tx_hash = Hash::from("706c739440cd10ff7f8b20c4da722437ef42873607d66c320e1cef4d956f3512");
+let tx = client
+    .get_transaction(&tx_hash)
+    .await
+    .expect("get_transaction");
+
+if tx.is_some() {
+    dbg!(tx);
+}
+```
+
+### Get transaction tree
+
+Fetch transaction tree and print each transaction:
+
+```rust
+fn print_tx_tree(tree: &TransactionTree, indentation: u16) {
+    match tree {
+        TransactionTree::Root{ children, hash } => {
+            println!("Root: {hash}");
+            children.iter().for_each(|x| print_tx_tree(&x, indentation+1));
+        },
+        TransactionTree::Node{ children, hash } => {
+            println!("{}Node: {hash}", (0..indentation).map(|_| "\t").collect::<String>());
+            children.iter().for_each(|x| print_tx_tree(&x, indentation+1));
+        },
+        TransactionTree::Leaf{ hash } => {
+            println!("{}Leaf: {hash}", (0..indentation).map(|_| "\t").collect::<String>());
+        },
+    }
+}
+
+fn fetch_and_print_tx_tree() {
+    let tx_hash = Hash::from("706c739440cd10ff7f8b20c4da722437ef42873607d66c320e1cef4d956f3512");
+    let tx_tree = client
+        .get_tx_tree(&tx_hash)
+        .await
+        .expect("get_tx_tree");
+​
+    print_tx_tree(&tx_tree, 0);
+}
+```
+
+## Full E2E example
+
+Gevulot node repo contains test code for full e2e test on deploying prover & verifier and then executing a `Run` transaction with them:
+
+{% embed url="https://github.com/gevulotnetwork/gevulot/blob/main/crates/tests/e2e-tests/src/main.rs" %}
+gevulot/crates/tests/e2e-tests/src/main.rs
+{% endembed %}
+
+The E2E example also contains embedded HTTP server for serving the program image files, when testing in local development environment.

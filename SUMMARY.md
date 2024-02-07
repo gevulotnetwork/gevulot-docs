@@ -9,6 +9,11 @@
 * [Unikernel](programs/unikernel.md)
 * [Fees](programs/fees.md)
 
+## DEVNET
+
+* [Overview](devnet/overview.md)
+* [JSON-RPC](devnet/json-rpc.md)
+
 ## Network
 
 * [Overview](network/overview.md)
