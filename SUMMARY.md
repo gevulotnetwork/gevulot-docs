@@ -8,18 +8,14 @@
 * [JSON-RPC](devnet/json-rpc.md)
 * [Development](devnet/development.md)
 
-## Programs
-
-* [Overview](programs/overview.md)
-* [Unikernel](programs/unikernel.md)
-* [Fees](programs/fees.md)
-
 ## Network
 
 * [Overview](network/overview.md)
+* [Programs](network/programs.md)
+* [Transactions](network/transactions.md)
+* [Fees](network/fees.md)
 * [Validators](network/validators.md)
 * [Provers](network/provers.md)
-* [Transactions](network/transactions.md)
 
 ## Usecases
 
