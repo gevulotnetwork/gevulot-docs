@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Gevulot Docs](README.md)
+* [Introduction](README.md)
 
 ## DEVNET
 
