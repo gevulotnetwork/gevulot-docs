@@ -1,3 +1,3 @@
 # Validity Rollups
 
-Modern validity rollups use Gevulot to outsource their proving. Where in many cases projects would need to either bootstrap their own prover networks or rely on their sequencers to manage heavy computational loads, with Gevulot they can simply deploy a prover and offload the compute.
+Modern validity rollups leverage Gevulot to delegate proving tasks. Traditionally, projects had to either establish their own networks of  provers or rely on their sequencers to handle intensive computations. However, with Gevulot they can easily deploy a prover to manage the computational demands.

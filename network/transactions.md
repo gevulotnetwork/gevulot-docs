@@ -13,25 +13,25 @@ Transaction types in Gevulot:
 
 **Deploying a Program**
 
-Deployments in Gevulot are immutable and permanent by default. Deployment transactions need to contain a pointer to the program binary (URL) and a hash commitment so the downloaded program can be verified. When a program is deployed, it becomes usable at the next epoch.
+Deployments in Gevulot are immutable and permanent by default. Deployment transactions must contain a pointer to the program binary (URL) and a hash commitment so that the downloaded program can be verified. Once a program is deployed, it becomes available in the next epoch.
 
 **Running a Program**
 
 The full lifecycle of running a prover program:
 
-1. `Run` transaction is sent to the network, which specifies the information necessary for executing a proving workload as a Workflow.
-2. The receiving node puts the transaction into the mempool for prover allocation and for inclusion in the next block.
-3. Prover nodes complete workload and put the proof back into the mempool for verification.
+1. `Run` transaction is sent to the network specifying the information necessary to execute a proving workload as a Workflow.
+2. The receiving node puts the transaction into the mempool for prover allocation and inclusion in the next block.
+3. Prover nodes complete the workload and put the proof back into the mempool for verification.
 4. Validator nodes verify the proof and vote on its correctness.
 5. Once 2/3 of validator nodes have verified, the leader includes the proof in the next block.
 
-A user can also cancel a workload, by submitting a `cancel` transaction. The cancellation will only be heeded by the provers once the transaction has finality and has propagated across the network at which point they will cease running the program. Once a proving workload is cancelled the user will pay for the cycles used up until the cancellation transaction reached finality.\
+A user can also cancel a workload, by submitting a `cancel` transaction. The cancellation will be heeded by the provers only when the transaction is finalized and propagated across the network, at which point they will cease running the program. When a proving workload is canceled, the user will pay for the cycles used until the cancellation is finalized.\
 \
 **Workflows**
 
-Workflows represent the execution steps of a `run` transaction. Each execution step has a reference to a `Program`, its arguments and input data, which might be a downloadable file or output from an earlier step. Each `Program` can run only once during the workflow.
+Workflows represent the execution steps of a `run` transaction. Each execution step has a reference to a `Program`, its arguments and input data, which may be a downloadable file or the output from an earlier step. Each `Program` can run only once during the workflow.
 
-For now, Gevulot only supports workflows that contain steps for proof generation and its verification. Each of these steps results in a new transaction that references an earlier step. The resulting transactions can be represented as a transaction tree. Due to protocol requirements, there are also auxiliary transactions in the transaction tree, to support secure execution of the workflow.
+Gevulot currently only supports workflows that contain steps for proof generation and its verification. Each of these steps results in a new transaction that references an earlier step. The resulting transactions can be represented as a transaction tree. Due to protocol requirements, there are also auxiliary transactions in the transaction tree to support secure execution of the workflow.
 
 Example: Proof generation & verification workflow.
 

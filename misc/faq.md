@@ -19,7 +19,7 @@ However, it is possible for the network to ensure that provers both a) cannot ma
 Currently, we are planning on utilizing the following mechanisms at the outset:
 
 1. Provers can only make money by completing proofs. If a proof fails to be generated for a given workload for whatever reason, the provers do not get a network reward, nor do they receive cycle fees (these are burned).&#x20;
-2. Provers are randomly allocated proof-of-work workloads which must be completed to remain in the active prover set. Completing these workloads does not yield any reward and so they function as a way to increase the cost of being dishonest.
+2. Provers are randomly allocated proof-of-work workloads which must be completed to remain in the active prover set. Completing these workloads yield only a small reward and so they function as a way to increase the cost of being dishonest.
 3. Non-responsive provers get slashed. If a prover fails to respond with a declined, completed or failed message, their stake gets slashed.
 
 Once network dynamics begin to emerge, we will explore further strategies such as:
