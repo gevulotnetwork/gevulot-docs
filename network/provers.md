@@ -8,13 +8,19 @@ Provers must be in the active prover set to be allocated proving workloads. To j
 
 **Proving**
 
-Each proving workload is allocated to one or more prover nodes in the active prover set using a verifiable random function (VRF) in a deterministic manner, so that the prover for a given workload can be calculated asynchronously.
+Each proving workload is allocated to one or more prover nodes in the active prover set using a verifiable random function (VRF) in a deterministic manner. Before allocation, the system excludes any provers that were assigned workloads in the previous round to ensure a fair distribution of work and prevent overburdening of any single prover node. This selection process allows the prover for a given workload to be calculated asynchronously, allowing each active prover node to have an equal opportunity to be selected for new workloads.
 
 The user pays for a certain amount of cycles per prover and the chosen provers either run the program until it completes, in which case they return the proof, or run it for the maximum time paid for cycles without completing it, in which case they return fail.
 
+**Prover Failure**
+
 A prover can choose to decline a workload if it's capacity or bandwidth is constrained. If a workload is declined by an allocated prover, any prover in the active set of provers can contribute a proof, but only the first of them will be rewarded and the reward schedule will not change. For example, a workload is allocated to 3 provers and 1 of them declines it. The reward for a single proof in this group then becomes open and any one prover can contribute a proof and will be paid as if this workload was allocated to them. However, once 3 proofs have been generated, two via allocation and one via the open market, subsequent proofs generated will not get a reward.&#x20;
 
-If a prover does not decline, but does not produce a proof within the specified cycles in a situation where all other allocated provers do, then the slot is also opened to the market as above, allowing any prover to produce a proof and claim the reward. This is to ensure redundancy guarantees hold.
+To ensure the integrity of redundancy guarantees, if a prover does not decline the workload, but fails to generate a proof within the specified cycles - while all other selected provers fulfill their obligations - the opportunity to generate proof is opened to the entire prover set. This mechanism allows any prover to step in, produce the proof and claim the associated reward.&#x20;
+
+**Single Prover**
+
+In a single prover configuration, to foster a competitive environment and prevent delays, the reward for proof submission is designed to gradually decrease over time. If a single prover fails to decline the workload but also fails to submit a proof within the designated cycles, the task becomes available to the entire network within the same timeframe. This ensures that no single point of failure compromises the system's efficiency. Following such inaction, the non-responsive prover is removed from the pool of active provers.
 
 **Copy Protection**
 
