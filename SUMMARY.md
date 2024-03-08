@@ -34,3 +34,5 @@
 * [Website](https://www.gevulot.com/)
 * [Github](https://github.com/gevulotnetwork)
 * [Twitter](https://twitter.com/gevulot\_network)
+* [Blog](https://blog.gevulot.com/)
+* [Telegram](https://t.me/gevulot)
