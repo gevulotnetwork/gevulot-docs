@@ -26,6 +26,7 @@
 * [Verifiable RPC](usecases/verifiable-rpc.md)
 * [ZkML](usecases/zkml.md)
 * [ZkFHE](usecases/zkfhe.md)
+* [ZK Coprocessors](usecases/zk-coprocessors.md)
 
 ## Misc
 
