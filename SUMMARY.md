@@ -5,8 +5,9 @@
 ## DEVNET
 
 * [Overview](devnet/overview.md)
+* [Key Registration](devnet/key-registration.md)
 * [JSON-RPC](devnet/json-rpc.md)
-* [Development](devnet/development.md)
+* [Integration](devnet/development.md)
 
 ## Network
 
