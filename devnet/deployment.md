@@ -6,7 +6,7 @@ description: Deployment guide for Gevulot programs.
 
 ### Prerequisites
 
-1. Ensure you have `gevulot-cli` installed (more detailed instructions [here](https://blog.gevulot.com/p/devnet-developer-onboarding-begins)):\
+1. Ensure you have `gevulot-cli` installed\
    `cargo install --git https://github.com/gevulotnetwork/gevulot.git gevulot-cli`\
 
 2. Ensure your local key has been [registered](https://docs.gevulot.com/gevulot-docs/devnet/key-registration).
