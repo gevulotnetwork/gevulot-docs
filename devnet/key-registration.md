@@ -1,4 +1,4 @@
-# CLI & Key Registration
+# Key Registration
 
 The Gevulot devnet is permissioned. All users need to register a key for allowlisting to get access. You will find instructions for generating and registering a key below.\
 \
@@ -32,6 +32,6 @@ Follow the below commands to generate your secret keys:
 
 Once your key is generated, we require each participant to register their key with us. This is necessary for us to set up and manage the allowlist and to ensure security. **Once available, please submit your key through** [**the registration form here**](https://airtable.com/appS1ebiXFs8H4OP5/pagVuySwNkMe95tIi/form)**.**\
 \
-We will inform you once your key has been allowlisted.
+We will inform you once your key has been registered.
 
 \
