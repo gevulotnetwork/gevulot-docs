@@ -1,6 +1,6 @@
-# Development
+# Prover Integration
 
-It is very easy to develop or modify a program to run in Gevulot as a prover or verifier. Almost any program that can be compiled as an ELF binary for the Linux x86\_64 architecture works, but in order to integrate the program with Gevulot and for it to be able to handle received workloads, it needs to work with the specified [gRPC protocol](https://github.com/gevulotnetwork/gevulot/blob/main/crates/shim/proto/vm\_service.proto).
+It is very easy to develop or modify a prover or verifier to run in Gevulot. Almost any program that can be compiled as an ELF binary for the Linux x86\_64 architecture works, but in order to integrate the program with Gevulot and for it to be able to handle received workloads, it needs to work with the specified [gRPC protocol](https://github.com/gevulotnetwork/gevulot/blob/main/crates/shim/proto/vm\_service.proto).
 
 ### Running environment
 

@@ -2,9 +2,9 @@
 
 ## Introduction
 
-Gevulot devnet provides a minimalist JSON-RPC API for end user interfacing. It allows for the creation and observation of transactions.
+The Gevulot devnet provides a minimalist JSON-RPC API for end user interfacing. It allows for the creation and observation of transactions.
 
-In order to access the Gevulot devnet JSON-RPC API, you must have your key whitelisted.
+In order to access the Gevulot devnet JSON-RPC API, you must [register a key](https://docs.gevulot.com/gevulot-docs/devnet/key-registration).
 
 Address to devnet API is `http://api.devnet.gevulot.com:9944`
 

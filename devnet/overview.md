@@ -1,6 +1,6 @@
 # Overview
 
-The Gevulot devnet, our first major release, is a permissioned network for testing the proof generation pipeline and other core functionality—including deployment, proving, verifying, networking, and orchestration.
+The Gevulot devnet is a permissioned network for high performance proof generation. It provides the full proof generation pipeline—including deployment, proving, verifying, networking, and orchestration. It is also highly redudant, so as long as one node remains online users can generate proofs.&#x20;
 
 The devnet offers the following functionality:
 
