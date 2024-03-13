@@ -5,10 +5,10 @@
 ## DEVNET
 
 * [Overview](devnet/overview.md)
-* [Key Registration](devnet/key-registration.md)
+* [CLI & Key Registration](devnet/cli-and-key-registration.md)
 * [JSON-RPC](devnet/json-rpc.md)
 * [Prover/Verifier Integration](devnet/development.md)
-* [Prover/Verifier Deployment](devnet/prover-verifier-deployment.md)
+* [Prover/Verifier Deployment](devnet/deployment.md)
 
 ## Network
 

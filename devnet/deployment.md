@@ -9,13 +9,13 @@ description: Deployment guide for Gevulot programs.
 1. Ensure you have `gevulot-cli` installed (more detailed instructions [here](https://blog.gevulot.com/p/devnet-developer-onboarding-begins)):\
    `cargo install --git https://github.com/gevulotnetwork/gevulot.git gevulot-cli`\
 
-2. Ensure your local key has been [allowlisted to devnet](https://airtable.com/appS1ebiXFs8H4OP5/pagVuySwNkMe95tIi/form)
+2. Ensure your local key has been [registered](https://docs.gevulot.com/gevulot-docs/devnet/key-registration).
 
 ### Calculate hash for your prover & verifier programs
 
-When deploying programs to Gevulot, they need to be served from an HTTP URL. In order to verify that the downloaded file is the correct one and has stayed intact, it must be accompanied with a checksum.
+When deploying provers/verifiers to Gevulot, they need to be served from an HTTP URL. In order to verify that the downloaded file is the correct one and has stayed intact, it must be accompanied with a checksum.
 
-To compute checksum of file for Gevulot you can use the CLI tool:
+To compute the checksum of a file for Gevulot you can use the CLI tool:
 
 `gevulot-cli calculate-hash --file <filepath>`
 
@@ -27,7 +27,7 @@ The program files must be available from an HTTP URL so easiest way for this is 
 
 One deployment always consists of prover & verifier. The individual programs can be reused in different deployments, but a single deployment must always contain both, a prover and a verifier, in order to guarantee a working system for the users.
 
-To deploy programs, use short but descriptive name for deployment so that the users can easily find them.
+To deploy programs, use a short but descriptive name for deployment so that the users can easily find them.
 
 `gevulot-cli --jsonurl "http://api.devnet.gevulot.com:9944" --keyfile my-local-key.pki \`\
 `deploy \`\
