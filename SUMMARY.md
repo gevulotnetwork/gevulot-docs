@@ -7,8 +7,8 @@
 * [Overview](devnet/overview.md)
 * [Key Registration](devnet/key-registration.md)
 * [JSON-RPC](devnet/json-rpc.md)
-* [Prover Integration](devnet/development.md)
-* [Prover Deployment](devnet/prover-deployment.md)
+* [Prover/Verifier Integration](devnet/development.md)
+* [Prover/Verifier Deployment](devnet/prover-verifier-deployment.md)
 
 ## Network
 

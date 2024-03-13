@@ -2,7 +2,7 @@
 description: Deployment guide for Gevulot programs.
 ---
 
-# Deployment
+# Prover/Verifier Deployment
 
 ### Prerequisites
 
