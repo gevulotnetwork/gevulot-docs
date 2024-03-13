@@ -4,6 +4,10 @@
 
 Gevulot devnet provides a minimalist JSON-RPC API for end user interfacing. It allows for the creation and observation of transactions.
 
+In order to access the Gevulot devnet JSON-RPC API, you must have your key whitelisted.
+
+Address to devnet API is `http://api.devnet.gevulot.com:9944`
+
 ## Operations
 
 ### sendTransaction
@@ -39,7 +43,7 @@ use gevulot_node::rpc_client::RpcClient;
 
 // ...
 
-let url = "http://node.address.example.com:9944"
+let url = "http://api.devnet.gevulot.com:9944"
 let client = RpcClient::new(url);
 ```
 
