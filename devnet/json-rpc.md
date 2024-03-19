@@ -105,6 +105,8 @@ fn construct_deployment_tx(private_key: &#x26;SecretKey, name: &#x26;str, prover
 
 When a prover and a verifier have been deployed, they can be used to generate and verify proofs.
 
+Note that single workflow step maximum runtime is restricted to 30 minutes.&#x20;
+
 `Run` transaction can be created in the following way:
 
 ```rust
