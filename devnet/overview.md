@@ -13,4 +13,3 @@ Devnet nodes are currently operated by [Supranational](https://www.supranational
 \
 The Gevulot devnet is launching March 25th. [Sign up for access](https://www.gevulot.com/).
 
-Note that currently single proving or verifying step can take 30 minutes at maximum, until it's forcefully stopped.

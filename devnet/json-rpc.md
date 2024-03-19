@@ -8,6 +8,8 @@ In order to access the Gevulot devnet JSON-RPC API, you must [register a key](ht
 
 Address to devnet API is `http://api.devnet.gevulot.com:9944`
 
+_Note: Compute time for proving workloads is currently restricted to max 30 mins._
+
 ## Operations
 
 ### sendTransaction
