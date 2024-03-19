@@ -1,4 +1,4 @@
-# Prover Integration
+# Prover/Verifier Integration
 
 It is very easy to develop or modify a prover or verifier to run in Gevulot. Almost any program that can be compiled as an ELF binary for the Linux x86\_64 architecture works, but in order to integrate the program with Gevulot and for it to be able to handle received workloads, it needs to work with the specified [gRPC protocol](https://github.com/gevulotnetwork/gevulot/blob/main/crates/shim/proto/vm\_service.proto).
 
@@ -89,6 +89,14 @@ C/C++ programs are nearly identical with Rust programs regarding the changes nee
 #### 1. Include the header file for FFI bindings
 
 [shim.h](https://github.com/gevulotnetwork/gevulot/blob/main/crates/shim-ffi/shim.h) provides function definitions for **gevulot-shim-ffi**.
+
+Shim header is a C header file. If it is included from C++ program, it must be wrapped with `extern` as follows:
+
+```
+extern "C" {
+  #include "shim.h"
+}
+```
 
 #### 2. Provide callback function for running a task
 
