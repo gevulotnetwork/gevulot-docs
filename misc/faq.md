@@ -18,8 +18,8 @@ However, it is possible for the network to ensure that provers both a) cannot ma
 \
 Currently, we are planning on utilizing the following mechanisms at the outset:
 
-1. Provers can only make money by completing proofs. If a proof fails to be generated for a given workload for whatever reason, the provers do not get a network reward, nor do they receive cycle fees (these are burned).&#x20;
-2. Provers are randomly allocated proof-of-work workloads which must be completed to remain in the active prover set. Completing these workloads yield only a small reward and so they function as a way to increase the cost of being dishonest.
+1. Provers can only make money by completing proofs. If a proof fails to be generated for a given workload for whatever reason, the provers do not get rewarded.&#x20;
+2. Provers are randomly allocated proof-of-workload tasks which must be completed to remain in the active prover set. Completing these workloads yield only a small reward and so they function as a way to increase the cost of being dishonest.
 3. Non-responsive provers get slashed. If a prover fails to respond with a declined, completed or failed message, their stake gets slashed.
 
 Once network dynamics begin to emerge, we will explore further strategies such as:
@@ -28,16 +28,6 @@ Once network dynamics begin to emerge, we will explore further strategies such a
 2. Time-outs. E.g. provers that decline a workload are ineligible for a workload for some amount of rounds.
 
 Ultimately the objective is to find the optimal point where provers act honestly 99.99% of the time with an elegant fallback for the 0.01% case, but the "management" overhead for achieving this is as low as possible for the network.
-
-**How do users know how many cycles to pay for?**
-
-While it is impossible to perfectly predict how many cycles a proving workload with some given inputs will require, there are many things that can be done to make this easier for the user. It is worth noting that users only pay for the cycles expended until the first proof (or only proof if no redundancy is required) and the race conditions created for the provers incentivize them to complete proofs as quickly as possible. This dynamic allows users to set very large max cycles (similar to gas limit in Ethereum), without needing to worry about overpaying. \
-\
-This however does not solve the question of what max cycles to set. We are exploring a variety of strategies for this, such as:
-
-1. Allowing the deployer to include a max cycles recommendation.
-2. Tracking cycles expended for previous completed proofs using the same program and exposing these to the user.
-3. Out-of-protocol runs with varied inputs to find a min-max cycle range for most runs of a given program.
 
 **What happens if a prover or verifier program is faulty?**
 
