@@ -1,16 +1,13 @@
-# Programs
+# Prover/Verifier Programs
 
-Gevulot programs come in two varieties: provers and verifiers. A verifier program can be deployed standalone, while a prover program must always be deployed with an accompanying verifier program. There are no hard constraints on what Gevulot programs need to contain, besides that the prover program must output a proof that can be verified by the verifier program for the system to be useful.
+Gevulot programs come in two varieties: provers and verifiers. Users can permissionlessly deploy any arbitrary prover and verifier program on Gevulot, similarly to deploying a smart contract on Ethereum.&#x20;
 
-Both types of programs can be written in a variety of languages such as Rust, C, C++, etc, and are compiled into unikernel images. Most open-source prover implementations can be compiled into unikernel images with minimal modification.&#x20;
+Both types of programs can be written in a variety of languages such as Rust, C, C++, etc. Most open-source prover implementations can be deployed on Gevulot with minimal modification. Gevulot also supports multi-threading and GPUs. In the Devnet section, you can learn more about [prover and verifier program integration](../devnet/development.md) and [deployment](../devnet/deployment.md).
 
-Gevulot programs run in a [Nanos](https://nanos.org/) unikernel, which provides the following features:
+When deploying a prover program, the user has to specify the resource requirements, i.e. CPU, RAM, and whether the program utilizes a GPU.
 
-1. Multi-threading
-2. GPU support
-3. Language support
-4. Efficient orchestration
-5. Fast boot times\
+Gevulot offers a customizable framework for prover deployment, allowing the integration of all kinds of distinct external software for various use cases. These custom prover sets built on top of this framework significantly increase the system's flexibility and efficiency. By applying this model, the Gevulot network gains the ability to incorporate external software with provers, eliminating the need for one-size-fits-all software across the network. To learn more about custom prover sets, visit the “[Custom prover sets](provers.md#custom-prover-sets)” section.&#x20;
 
+Deployments on Gevulot are immutable and permanent by default. Deployment transactions must contain a pointer to the program binary (URL) and a hash commitment, ensuring that the downloaded program can be verified.
 
-Note: Currently Nanos officially supports Nvidia 3090 and Nvidia 4090 in on-prem setups.
+\

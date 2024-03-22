@@ -1,35 +1,74 @@
-# Provers
+# Network Actors
 
-Prover nodes complete proving workloads. Gevulot aggregates proving workloads across many different applications maximizing both hardware utilization and financial return for provers.
+## **Validators**
 
-**Active Prover Set**
+**Validator set**
 
-Provers must be in the active prover set to be allocated proving workloads. To join the active prover set, prover nodes must be staked and must provide information on their hardware capabilities. The completion of the proof of work workloads verifies that the hardware of the provers meets the necessary hardware requirements. This information is used to allocate proving workloads to provers with the prerequisite hardware to complete a workload. All provers in the active prover set will also have to complete additional randomly assigned proof of work workloads, which must be completed within the time constraints or the prover will be removed from the set. Leaving the active prover set always has a cooldown period before the stake will be unlocked.
+Validators in Gevulot are responsible for running verifier programs and achieving consensus on replicated states, such as balances, transfers, staking, prover set, prover rewards, and program deployments. Gevulot strives to avoid replicated states whenever possible, enabling exceptional performance while minimizing hardware requirements for validators.
 
-**Proving**
+#### **Participation**
 
-Each proving workload is allocated to one or more prover nodes in the active prover set using a verifiable random function (VRF) in a deterministic manner. Before allocation, the system excludes any provers that were assigned workloads in the previous round to ensure a fair distribution of work and prevent overburdening of any single prover node. This selection process allows the prover for a given workload to be calculated asynchronously, allowing each active prover node to have an equal opportunity to be selected for new workloads.
+Participation in Gevulot’s validator set is permissionless, anyone can join the network. A Gevulot validator node requires modest hardware resources. Validators must deposit an amount of native tokens to participate in the network. The deposited stake will be locked for the entire duration of their active participation. Leaving the active validator set has a cooldown period before the stake can be unlocked.
 
-The user pays for a certain amount of cycles per prover and the chosen provers either run the program until it completes, in which case they return the proof, or run it for the maximum time paid for cycles without completing it, in which case they return fail.
+#### **Leader selection and block-building**
 
-**Prover Failure**
+At every block, a leader is selected from the active validator set through a Verifiable Random Function (VRF) in a deterministic manner. The leader is responsible for ordering transactions and proofs into blocks. Once the network reaches consensus, the block is finalized and becomes part of the canonical chain.
 
-A prover can choose to decline a workload if it's capacity or bandwidth is constrained. If a workload is declined by an allocated prover, any prover in the active set of provers can contribute a proof, but only the first of them will be rewarded and the reward schedule will not change. For example, a workload is allocated to 3 provers and 1 of them declines it. The reward for a single proof in this group then becomes open and any one prover can contribute a proof and will be paid as if this workload was allocated to them. However, once 3 proofs have been generated, two via allocation and one via the open market, subsequent proofs generated will not get a reward.&#x20;
+#### **Consensus mechanism**
 
-To ensure the integrity of redundancy guarantees, if a prover does not decline the workload, but fails to generate a proof within the specified cycles - while all other selected provers fulfill their obligations - the opportunity to generate proof is opened to the entire prover set. This mechanism allows any prover to step in, produce the proof and claim the associated reward.&#x20;
+To achieve consistent, high-performance, and secure state replication, Gevulot employs CometBFT as its consensus engine, which is based on the Tendermint consensus algorithm.
 
-**Single Prover**
+## Provers
 
-In a single prover configuration, to foster a competitive environment and prevent delays, the reward for proof submission is designed to gradually decrease over time. If a single prover fails to decline the workload but also fails to submit a proof within the designated cycles, the task becomes available to the entire network within the same timeframe. This ensures that no single point of failure compromises the system's efficiency. Following such inaction, the non-responsive prover is removed from the pool of active provers.
+The Gevulot network features two distinct sets of provers designed to facilitate proof generation and verification. The versatility of these sets allows for a wide range of use cases, empowering users to choose or integrate external software that best suits their operational needs. This approach eliminates the dependency on a universal, one-size-fits-all software solution across the network, thereby enhancing flexibility and user autonomy.&#x20;
 
-**Copy Protection**
+### **Global prover set**
 
-Once a prover generates a proof for a given workload, the proof is encrypted with a secret key. This key is then further encrypted by the public key of the user that broadcast the workload and a temporary prover key, leading to two encrypted versions of the proof. These encrypted proofs are then broadcast to the mempool. The end-user can then immediately pick up and decrypt the proof for use. Once the cycles have been exhausted or all the proofs have been generated and broadcast, the prover then broadcasts the temporary prover key so the validators can decrypt the proof and verify. \
+The Global Prover Set serves as the foundational layer within the network, where provers are initially integrated and assigned proving workloads. Participation in this primary prover set is governed by two key criteria to ensure security and equitable distribution of tasks:
+
+* **Prover staking:** Provers must stake an amount of native tokens to be eligible to participate in the set. This requirement serves as a security measure and ensures commitment to the network. The deposited stake will be locked for the entire duration of their active participation.&#x20;
+* **Proof of Workload completion:** Upon joining the network prover nodes need to complete designated proof of workload tasks. Successfully completing these tasks demonstrates that the prover's hardware meets the network's minimum requirements, thereby qualifying them for workload allocation.&#x20;
+
+A cooldown period is instituted for provers exiting the global prover set, during which their stakes remain locked to ensure network stability.
+
+#### **Workload allocation**
+
+Workload allocation within both the global and custom prover sets utilizes a Verifiable Random Function (VRF) for fair and deterministic distribution. The system ensures diversity in workload assignment by excluding provers that participated in the previous round, thereby preventing overload and maintaining a balanced distribution of tasks.
+
+#### **Fallback mechanism**
+
+Provers can decline workloads when faced with capacity or bandwidth limitations. However, there is a limit to the number of workloads a prover can decline; exceeding this limit will result in being kicked out of the prover set. If a prover declines a workload or fails to complete it within the maximum compute time, the opportunity to generate a proof opens up to the entire set of provers, ensuring that network redundancy and efficiency are not compromised. In this proof race, only the first prover will be rewarded and the reward mechanism will not change.&#x20;
+
+### **Custom prover sets**
+
+Nested within the global prover set, custom prover sets enable a modular approach for data storage and allow the integration of distinct external software for various use cases. In short, they allow a deployer to define some external software that prover nodes need to run alongside the Gevulot node to join the prover set.
+
+Custom prover sets significantly increase the system's flexibility and efficiency through several key benefits:
+
+* Reduces the complexity of maintaining extensive data repositories across the network.
+* Encourages a rich ecosystem of specialized provers, fostering innovation and diversity.
+* Supports voluntary participation, enabling the network to evolve dynamically in response to user demands without enforcing a uniform architecture.
+
+Custom prover sets resemble a layered addition to the base network, similar to the inclusion of advanced features for enhanced functionality. This approach allows for a higher degree of customization, addressing specific user needs with greater precision.
+
+#### **External software communication**
+
+Messaging between external programs and prover programs over a network involves creating a virtual, isolated network within a node, using virtual network interfaces like TUN/TAP, to ensure secure and confined interactions. This setup allows for flexible configurations, where each program, whether a prover, verifier, or external software, communicates over this isolated network, employing various protocols such as custom protocols, gRPC, or JSON-RPC based on performance and integration needs. Service discovery within this isolated network could leverage mechanisms like mDNS or configuration details passed through the task definition, ensuring programs know where and how to connect. This approach offers node operators the flexibility to maintain strict isolation for security and integrity while providing the ability to integrate a wide range of external software and communication protocols.
+
+#### Participation
+
+To join any custom prover set, provers must be part of the global prover set. Participation in custom prover sets is optional, but the criteria for joining is similar to that of the global set. Custom prover sets require proof of workload completion specific to the specialized software features. This proof of workload is generated by the deployer of the prover program and verifies the provers' capability in processing the custom sample inputs for proof generation.
+
+#### **Workload allocation**
+
+When a workload transaction is initiated on a prover program requiring external software, only those prover nodes that explicitly opt in to participate in the corresponding custom prover set will be included in the Verifiable Random Function (VRF) process. The network maintains transparency in participation decisions, keeping all users informed about the number of active provers in the custom prover sets.
+
+#### Proof pricing
+
+Within custom prover sets, proof pricing is set by the deployer of the prover program and remains consistent across all prover nodes in the set. This ensures uniform pricing within a custom prover set, maintaining the fairness and reliability of the randomness produced by the VRF.&#x20;
+
+However, users have the option to deploy distinct provers with unique pricing where participation can be restricted to specific nodes. This provides the opportunity to develop more flexible pricing strategies that cater to diverse needs and circumstances.
+
+To prevent potential disparities, such as proprietary provers offering proofs at no cost or at rates lower than those of open-source counterparts, a standardized minimum cost is enforced across the network. This prevents any single entity from skewing the pricing dynamics, ensuring equitable and sustainable operation within the network.
+
 \
-This mechanism prevents provers from copying completed proofs from the mempool and broadcasting them as their own, while ensuring the end-user receives proofs as soon as they are finished. This mechanism does delay verification, but in practice this delay has a negligible effect on the speed of finality.&#x20;
-
-**Prover Incentives**
-
-There is a prover reward paid by the network to the provers that complete the workload in the given cycle time. This reward is tiered based on speed; the first node to return a proof receives a large portion of the reward, the second a smaller portion, and the third an even smaller portion. All nodes that complete the workload within the given cycle time receive at least part of the reward, in addition to their share of the fees paid by the user. If the program does not complete, the fees are burned.
-
-Note: Proof of work workloads may also be rewarded but the reward will be considerably smaller than for end-user workloads.

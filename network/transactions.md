@@ -1,90 +1,39 @@
-# Transactions
+# Proving Workloads
 
-Transaction types in Gevulot:
+#### **Overview of running a prover program**
 
-| Type     | Description                                   |
-| -------- | --------------------------------------------- |
-| Transfer | Transfer funds from one address to another    |
-| Stake    | Stake funds to a prover or validator node     |
-| Unstake  | Unstake funds from a prover or validator node |
-| Deploy   | Deploy a prover and/or verifier program       |
-| Run      | Run a proving workload                        |
-| Cancel   | Cancel a proving workload                     |
+The lifecycle of proving workloads:
 
-**Deploying a Program**
+1. The user sends a `Run` transaction to the network specifying the information necessary to execute a proving workload.
+2. The receiving node adds the transaction to the mempool for inclusion in the next block.
+3. Once the transaction has been included in a block by the leader and finalized, it is randomly allocated to a prover node.
+4. The prover node completes the workload and sends the proof back to the mempool for verification. (The proof can already be shared with the user if, for instance, verification and settlement are done on Ethereum.)
+5. All provers participate in the verification of the proof and vote on its correctness.
+6. Once 2/3 of the prover nodes have verified the proof, the leader includes the proof in the next block.
+7. The proof reaches finality on Gevulot.
 
-Deployments in Gevulot are immutable and permanent by default. Deployment transactions must contain a pointer to the program binary (URL) and a hash commitment so that the downloaded program can be verified. Once a program is deployed, it becomes available in the next epoch.
+#### **Submitting a proving workload**
 
-**Running a Program**
+To submit a proving workload transaction to a given prover program, the user needs to specify:
 
-The full lifecycle of running a prover program:
+* Resource requirements for the prover workload.
+* Maximum compute time.
 
-1. `Run` transaction is sent to the network specifying the information necessary to execute a proving workload as a Workflow.
-2. The receiving node puts the transaction into the mempool for prover allocation and inclusion in the next block.
-3. Prover nodes complete the workload and put the proof back into the mempool for verification.
-4. Validator nodes verify the proof and vote on its correctness.
-5. Once 2/3 of validator nodes have verified, the leader includes the proof in the next block.
+The network will calculate the fees based on the above parameters. To learn more about proving workload fees, please refer to the [“Economics”](fees.md) section.
 
-A user can also cancel a workload, by submitting a `cancel` transaction. The cancellation will be heeded by the provers only when the transaction is finalized and propagated across the network, at which point they will cease running the program. When a proving workload is canceled, the user will pay for the cycles used until the cancellation is finalized.\
+#### **Block building and transaction inclusion**
+
+At every block, a leader is selected from the active validator set. The leader is responsible for including the transactions and ordering them into blocks. Once the receiving node has added the proving workload transaction to the mempool, the leader includes it in a block. After consensus has been reached among the validators, and the workload transaction reaches finality, the proving workload is allocated to a randomly selected prover.
+
+#### **Proof generation, verification, and finality**
+
+The selected prover runs the prover program with the received inputs until it completes, and returns a proof. If the maximum compute time is not sufficient to complete the workload, the prover returns a fail.
+
+Once the prover has generated the proof for the assigned workload, it is sent to the mempool for verification. All provers participate in verifying the proof and vote on its correctness. Once at least 2/3 of the prover nodes have verified the proof, the leader includes it in the next block, and the proof is finalized.&#x20;
+
+The verification threshold constitutes finality from the network's perspective, but anyone can verify the proof for immediate use outside of the Gevulot network.
+
 \
-**Workflows**
-
-Workflows represent the execution steps of a `run` transaction. Each execution step has a reference to a `Program`, its arguments and input data, which may be a downloadable file or the output from an earlier step. Each `Program` can run only once during the workflow.
-
-Gevulot currently only supports workflows that contain steps for proof generation and its verification. Each of these steps results in a new transaction that references an earlier step. The resulting transactions can be represented as a transaction tree. Due to protocol requirements, there are also auxiliary transactions in the transaction tree to support secure execution of the workflow.
-
-Example: Proof generation & verification workflow.
-
-Transaction #1:
-
-&#x20; \- Run:
-
-&#x20;   \- Workflow:
-
-&#x20;     \- Step #1: Generate proof with program 0xf0a3e81d
-
-&#x20;       \- Program: 0xf0a3e81d
-
-&#x20;       \- Arguments: \["--proof", "-o", "/workspace/proof.out", "-i", "input.dat"]
-
-&#x20;       \- Program input:
-
-&#x20;         \- Input file: URL: [https://example.com/foobar/proof/247791284/input.dat](https://example.com/foobar/proof/247791284/input.dat)
-
-&#x20;     \- Step #2: Verify proof with program 0x30b1a8fc
-
-&#x20;       \- Program: 0x30b1a8fc
-
-&#x20;       \- Arguments: \["--verify", "-o", "/workspace/verification.out", "-i", "proof.out"]
-
-&#x20;       \- Program input:
-
-&#x20;         \- Output file: File "proof.out" from program 0xf0a3e81d
-
-Transaction #2:
-
-&#x20; \- Proof:
-
-&#x20;   \- Parent: tx #1
-
-&#x20;   \- Proof: "\<encrypted proof data>"
-
-Transaction #3:
-
-&#x20; \- ProofKey:
-
-&#x20;   \- Parent: tx #2
-
-&#x20;   \- Key: "\<decryption key for proof data>"
-
-Transaction #4:
-
-&#x20; \- Verification:
-
-&#x20;   \- Parent: tx #2
-
-&#x20;   \- Verification: "\<data from proof verification>"
-
 \
 
 

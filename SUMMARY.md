@@ -13,11 +13,12 @@
 ## Network
 
 * [Overview](network/overview.md)
-* [Programs](network/programs.md)
-* [Transactions](network/transactions.md)
-* [Fees](network/fees.md)
-* [Validators](network/validators.md)
-* [Provers](network/provers.md)
+* [Prover/Verifier Programs](network/programs.md)
+* [Proving Workloads](network/transactions.md)
+* [Network Actors](network/provers.md)
+* [Economics](network/fees.md)
+* [Execution Guarantees](network/execution-guarantees.md)
+* [Roadmap](network/roadmap.md)
 
 ## Usecases
 
