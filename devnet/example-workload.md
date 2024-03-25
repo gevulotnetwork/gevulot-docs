@@ -1,6 +1,6 @@
 # Example Workload
 
-This guide you through the steps necessary to run an example workload on a Starkware Stone prover deployed on Gevulot.
+This guide will walk you through the steps necessary to run an example workload on a Starkware Stone prover deployed on Gevulot.
 
 ### Generate the Inputs
 
