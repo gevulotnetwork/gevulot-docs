@@ -12,4 +12,4 @@ The core value proposition of Gevulot can be summarized as follows:
 
 These docs describe the current network design and how to develop or interact with the network.
 
-The current status of the project is alpha.
+**The Gevulot devnet is live and free to use. Get started by** [**registering a key.**](https://docs.gevulot.com/gevulot-docs/devnet/key-registration)
