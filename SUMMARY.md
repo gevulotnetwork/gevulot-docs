@@ -7,6 +7,7 @@
 * [Overview](devnet/overview.md)
 * [Key Registration](devnet/key-registration.md)
 * [JSON-RPC](devnet/json-rpc.md)
+* [Example Workload](devnet/example-workload.md)
 * [Prover/Verifier Integration](devnet/development.md)
 * [Prover/Verifier Deployment](devnet/deployment.md)
 
