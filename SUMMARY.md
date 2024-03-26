@@ -9,6 +9,7 @@
 * [JSON-RPC](devnet/json-rpc.md)
 * [Example Workload](devnet/example-workload.md)
 * [Prover/Verifier Integration](devnet/development.md)
+* [Prover/Verifier Packaging](devnet/prover-verifier-packaging.md)
 * [Prover/Verifier Deployment](devnet/deployment.md)
 
 ## Network
