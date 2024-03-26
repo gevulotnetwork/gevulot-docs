@@ -1,4 +1,4 @@
-# Example Workload
+# Starknet Stone Prover
 
 This guide will walk you through the steps necessary to run an example workload on a Starkware Stone prover deployed on Gevulot.
 
