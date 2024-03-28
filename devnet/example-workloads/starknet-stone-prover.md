@@ -26,12 +26,12 @@ pip install cairo-lang==0.12.0
 
 #### 1.2 Compile a Cairo program
 
-We will compile the fibonacci test program located in the `/e2etest` folder
+We will compile the fibonacci test program located in the `/e2e_test` folder
 
 Go into that folder and compile the Cairo program there.
 
 ```
-cd e2etest
+cd e2e_test
 cairo-compile fibonacci.cairo --output fibonacci_compiled.json --proof_mode
 ```
 
