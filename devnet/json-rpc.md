@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Gevulot devnet provides a minimalist JSON-RPC API for end user interfacing. It allows for the creation and observation of transactions.
+The Gevulot devnet provides a minimalist JSON-RPC API for end-user interfacing. It allows for the creation and observation of transactions.
 
 In order to access the Gevulot devnet JSON-RPC API, you must [register a key](https://docs.gevulot.com/gevulot-docs/devnet/key-registration).
 
@@ -14,7 +14,7 @@ _Note: Compute time for proving workloads is currently restricted to max 30 mins
 
 ### sendTransaction
 
-`sendTransaction` operations allow users to submit a transaction for execution. Currently the devnet supports `Deploy` and `Run` transaction types.
+`sendTransaction` operations allow users to submit a transaction for execution. Currently, the devnet supports `Deploy` and `Run` transaction types.
 
 
 
@@ -107,7 +107,7 @@ fn construct_deployment_tx(private_key: &#x26;SecretKey, name: &#x26;str, prover
 
 When a prover and a verifier have been deployed, they can be used to generate and verify proofs.
 
-Note that single workflow step maximum runtime is restricted to 30 minutes.&#x20;
+Note that the single workflow step maximum runtime is restricted to 30 minutes.&#x20;
 
 `Run` transaction can be created in the following way:
 
@@ -216,4 +216,4 @@ The Gevulot node repo contains test code for full e2e test of deploying a prover
 gevulot/crates/tests/e2e-tests/src/main.rs
 {% endembed %}
 
-The E2E example also contains embedded HTTP server for serving the program image files, when testing in local development environment.
+The E2E example also contains an embedded HTTP server for serving the program image files, when testing in local development environment.

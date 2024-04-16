@@ -1,6 +1,6 @@
 # Taiko Prover
 
-This guide will walk you through the steps necesary to run the Taiko prover on Gevulot.
+This guide will walk you through the steps necessary to run the Taiko prover on Gevulot.
 
 ### The Witness
 
@@ -47,7 +47,7 @@ Lastly, you will need a public url for for the file. An S3 bucket would be one o
 
 ### Execute the proof
 
-#### 2.1 The parameters stucture for the proof
+#### 2.1 The parameters structure for the proof
 
 Use the json structure below as a template for creating the parameter inputs. You will observe:
 

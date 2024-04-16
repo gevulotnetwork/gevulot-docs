@@ -21,7 +21,7 @@ To compute the checksum of a file for Gevulot you can use the CLI tool:
 
 ### Upload the programs to HTTP service
 
-The program files must be available from an HTTP URL so easiest way for this is to use e.g. Amazon S3 or similar for serving files.
+The program files must be available from an HTTP URL so the easiest way for this is to use e.g. Amazon S3 or similar for serving files.
 
 ### Deploy the prover & verifier programs as one deployment
 
@@ -49,7 +49,7 @@ As of writing, by default Gevulot node allocates 2vCPU and 2GB of RAM (0 GPUs) f
 
 The unit for memory requirements is mebibytes.
 
-**NOTE**: While the devnet nodes have certain minimum requirements, it is not recommended to try matching them with the program resource requirements as that can lead to situation where due to normal system operation, there aren't enough resources available at any given time and therefore the program cannot ever run.
+**NOTE**: While the devnet nodes have certain minimum requirements, it is not recommended to try matching them with the program resource requirements as that can lead to a situation where due to normal system operation, there aren't enough resources available at any given time and therefore the program cannot ever run.
 
 ```
 gevulot-cli --jsonurl "http://api.devnet.gevulot.com:9944"--keyfile my-local-key.pki \

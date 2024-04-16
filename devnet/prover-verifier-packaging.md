@@ -110,6 +110,6 @@ Ops will print the resulting program image file location:
 Bootable image file:/home/johndoe/.ops/images/my_prover
 ```
 
-### Packaging for GPU accelerated programs
+### Packaging for GPU-accelerated programs
 
-GPU accelerated programs require a bit more complex packaging. Documentation for those is coming soon.
+GPU-accelerated programs require a bit more complex packaging. Documentation for those is coming soon.

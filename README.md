@@ -1,6 +1,6 @@
 # Introduction
 
-Gevulot is the first decentralised proving layer for the modular stack. It is designed to greatly decrease the cost of proving by aggregating workloads from across all usecases, allowing it to optimally utilize the underlying hardware. \
+Gevulot is the first decentralised proving layer for the modular stack. It is designed to greatly decrease the cost of proving by aggregating workloads from across all use cases, allowing it to optimally utilize the underlying hardware. \
 \
 The core value proposition of Gevulot can be summarized as follows:
 

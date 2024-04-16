@@ -94,7 +94,7 @@ The hash of the file is: b345e7ca8ab9bba28fe1438b3cabc8e2a9b6029c68663326be5b590
 
 #### 2.3 The configuration files
 
-Two configuration files are passed in to the `cpu_air_prover`. In our implementation, default `prover_config_file` and `parameter_file` parameters point to files embedded in the prover unikernel. This is their contents:
+Two configuration files are passed in to the `cpu_air_prover`. In our implementation, default `prover_config_file` and `parameter_file` parameters point to files embedded in the prover unikernel. This is their content:
 
 `cpu_air_params.json`:
 
@@ -132,17 +132,17 @@ Two configuration files are passed in to the `cpu_air_prover`. In our implementa
 }
 ```
 
-You may require (or choose) the employ different configuration files. In that case, treat them like normal input files, and change the parameters in the struct passed in to the prover (see section 3.1)
+You may require (or choose) to employ different configuration files. In that case, treat them like normal input files, and change the parameters in the struct passed in to the prover (see section 3.1)
 
 ### Execute the proof
 
-#### 3.1 The params stucture for the proof
+#### 3.1 The params structure for the proof
 
 Use the json structure below as a template for creating the parameter inputs. You will observe:
 
 * five arguments are passed in as key/value pairs
 * two folders used
-  * the `/gevulot` path is used for the default cofiguration files, embedded in the prover image.
+  * the `/gevulot` path is used for the default configuration files, embedded in the prover image.
   * the `/workspace` path is used for dynamic file instances
 * four input files are passed in, with their respective urls and hash values, the latter associated with the `local_path` property.
 * although the trace and memory files are not explicitly passed in as arguments, they must be listed as input files, as both files are referenced from the private inputs.
@@ -290,4 +290,4 @@ Under payload.Verification.verification, we see a string encoded as base64. Use 
 {"is_success":true,"message":"Starkware verifier result: success","proof_file":"/workspace/proof.json","timestamp":1711350602079}
 ```
 
-And you're done!\
+And you're done!\\
