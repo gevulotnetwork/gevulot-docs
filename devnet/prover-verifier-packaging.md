@@ -19,7 +19,7 @@ Gevulot runs provers and verifiers in a virtual machine, under [Nanos](https://n
 ### Prerequisites
 
 * Install [Ops](https://ops.city/)
-* [Gevulot integration](development.md) has been implemented in the program
+* [Gevulot integration](integration.md) has been implemented in the program
 * The program has been compiled for Linux x86\_64 target
 
 ### Manifest

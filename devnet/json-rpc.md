@@ -53,7 +53,7 @@ let client = RpcClient::new(url);
 
 #### Deployment
 
-This section assumes you have built program images for prover & verifier as described in the [Development](development.md) section. In order to deploy them, files must be available from an HTTP server and a BLAKE3 checksum must be calculated for them.
+This section assumes you have built program images for prover & verifier as described in the [Development](integration.md) section. In order to deploy them, files must be available from an HTTP server and a BLAKE3 checksum must be calculated for them.
 
 Given those details, a deploy transaction can be built as follows:
 

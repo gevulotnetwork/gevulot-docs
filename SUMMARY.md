@@ -10,7 +10,7 @@
 * [Example Workloads](devnet/example-workloads/README.md)
   * [Starknet Stone Prover](devnet/example-workloads/starknet-stone-prover.md)
   * [Taiko Prover](devnet/example-workloads/taiko-prover.md)
-* [Prover/Verifier Integration](devnet/development.md)
+* [Prover/Verifier Integration](devnet/integration.md)
 * [Prover/Verifier Packaging](devnet/prover-verifier-packaging.md)
 * [Prover/Verifier Deployment](devnet/deployment.md)
 

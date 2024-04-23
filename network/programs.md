@@ -2,7 +2,7 @@
 
 Gevulot programs come in two varieties: provers and verifiers. Users can permissionlessly deploy any arbitrary prover and verifier program on Gevulot, similarly to deploying a smart contract on Ethereum.&#x20;
 
-Both types of programs can be written in a variety of languages such as Rust, C, C++, etc. Most open-source prover implementations can be deployed on Gevulot with minimal modification. Gevulot also supports multi-threading and GPUs. In the Devnet section, you can learn more about [prover and verifier program integration](../devnet/development.md) and [deployment](../devnet/deployment.md).
+Both types of programs can be written in a variety of languages such as Rust, C, C++, etc. Most open-source prover implementations can be deployed on Gevulot with minimal modification. Gevulot also supports multi-threading and GPUs. In the Devnet section, you can learn more about [prover and verifier program integration](../devnet/integration.md) and [deployment](../devnet/deployment.md).
 
 When deploying a prover program, the user has to specify the resource requirements, i.e. CPU, RAM, and whether the program utilizes a GPU.
 
