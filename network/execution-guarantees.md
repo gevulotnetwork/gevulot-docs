@@ -20,9 +20,7 @@ To learn more about capacity verification, please visit the  “[Global prover s
 
 #### Fallback mechanism
 
-A prover can choose to decline a workload if its capacity or bandwidth is constrained, however,  there is a limit to the number of workloads a prover can decline. If a workload is declined by the assigned prover, any prover in the active set of provers can contribute a proof.&#x20;
-
-Similarly, if a prover does not decline the workload, but fails to generate a proof within the specified max compute time, the opportunity to generate a proof is opened to the entire prover set. This mechanism allows any prover to step in, produce a proof, and claim the associated reward.
+A prover can choose to decline a workload if its capacity or bandwidth is constrained, however, there is a limit to the number of workloads a prover can decline. When a prover rejects a workload or is unable to complete it in the maximum compute time, the prover workload is reallocated. Using VRF, two provers randomly selected from the global set of provers are given the opportunity to produce a proof. Both provers are rewarded for successful proof generation. In proof reallocation, users do not receive a fee rebate, their rebate is burned. This guarantees that the redundancy and efficiency of the network are maintained.&#x20;
 
 This fallback mechanism ensures that no single point of failure compromises the system's efficiency. Following the inaction of a prover (no decline and no delivery), the non-responsive prover is removed from the set of active provers.
 

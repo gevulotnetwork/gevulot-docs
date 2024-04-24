@@ -37,7 +37,7 @@ Workload allocation within both the global and custom prover sets utilizes a Ver
 
 #### **Fallback mechanism**
 
-Provers can decline workloads when faced with capacity or bandwidth limitations. However, there is a limit to the number of workloads a prover can decline; exceeding this limit will result in being kicked out of the prover set. If a prover declines a workload or fails to complete it within the maximum compute time, the opportunity to generate a proof opens up to the entire set of provers, ensuring that network redundancy and efficiency are not compromised. In this proof race, only the first prover will be rewarded and the reward mechanism will not change.&#x20;
+Provers can decline workloads when faced with capacity or bandwidth limitations. However, there is a limit to the number of workloads a prover can decline; exceeding this limit will result in being kicked out of the prover set. If a prover declines a workload or fails to complete the workload within the maximum compute time, the opportunity to generate a proof opens via the VRF to two randomly selected provers from the global prover set . This ensures that network redundancy and efficiency are not compromised. In this workload re-allocation, both provers who complete the proof are rewarded.
 
 ### **Custom prover sets**
 
