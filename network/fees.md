@@ -62,7 +62,7 @@ In the global prover set, the provers that complete the workload within max comp
 
 #### **Verification rewards**
 
-Provers are also incentivized to verify proofs (both valid or invalid) across the network. They receive a small reward for all proofs on which at least 2/3 of the provers agree.
+Provers are also incentivized to verify proofs (both valid or invalid) across the network. They receive a small reward for all proofs on which all of the verifying provers agree.
 
 
 
