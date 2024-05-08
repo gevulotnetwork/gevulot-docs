@@ -20,7 +20,17 @@ To learn more about capacity verification, please visit the  “[Global prover s
 
 #### Fallback mechanism
 
-A prover can choose to decline a workload if its capacity or bandwidth is constrained, however, there is a limit to the number of workloads a prover can decline. When a prover rejects a workload or is unable to complete it in the maximum compute time, the prover workload is reallocated. Using VRF, two provers randomly selected from the global set of provers are given the opportunity to produce a proof. Both provers are rewarded for successful proof generation. In proof reallocation, users do not receive a fee rebate, their rebate is burned. This guarantees that the redundancy and efficiency of the network are maintained.&#x20;
+All provers need to accept or decline the assigned workloads, failing which they are removed from the prover set. A prover can choose to decline a workload if its capacity or bandwidth is constrained, however, there is a limit to the number of workloads a prover can decline: at most one workload a week, or four workloads a month. If the selected prover does not decline or accept the workload, the network will automatically select another prover randomly within the same allocation round.
+
+When a prover is unable to complete the workload in the max compute time, the proving workload is reallocated to one additional prover randomly selected from the global set of provers. This guarantees that the redundancy and efficiency of the network are maintained.&#x20;
+
+If the fallback prover successfully generates the proof within the max compute time:&#x20;
+
+1. The requester gets back 50% of the fees as compensation for the delay in proving.
+2. The fallback prover receives regular rewards.&#x20;
+3. The initial prover gets kicked out of the prover set.&#x20;
+
+However, if the fallback prover also fails to generate the proof within the allocated time, all fees will be burned.&#x20;
 
 This fallback mechanism ensures that no single point of failure compromises the system's efficiency. Following the inaction of a prover (no decline and no delivery), the non-responsive prover is removed from the set of active provers.
 

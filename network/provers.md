@@ -35,9 +35,23 @@ A cooldown period is instituted for provers exiting the global prover set, durin
 
 Workload allocation within both the global and custom prover sets utilizes a Verifiable Random Function (VRF) for fair and deterministic distribution. The system ensures diversity in workload assignment by excluding provers that participated in the previous round, thereby preventing overload and maintaining a balanced distribution of tasks.
 
+Every workload is allocated to one prover through the VRF. All provers need to accept or decline their assigned workloads, failing which they will be removed from the prover set.
+
+Provers can decline workloads when faced with capacity or bandwidth limitations. However, there is a limit to the number of workloads a prover can decline: at most one workload a week, or four workloads a month. Exceeding this limit will also result in being removed from the prover set.&#x20;
+
+If the selected prover does not decline or accept the workload, the network will automatically select another prover randomly and reallocate the workload accordingly within the same allocation round. This applies to both the initial allocation of a workload and the fallback scenario.
+
 #### **Fallback mechanism**
 
-Provers can decline workloads when faced with capacity or bandwidth limitations. However, there is a limit to the number of workloads a prover can decline; exceeding this limit will result in being kicked out of the prover set. If a prover declines a workload or fails to complete the workload within the maximum compute time, the opportunity to generate a proof opens via the VRF to two randomly selected provers from the global prover set . This ensures that network redundancy and efficiency are not compromised. In this workload re-allocation, both provers who complete the proof are rewarded.
+If a prover fails to complete the workload within the maximum compute time, the fallback mechanism is activated, and the workload is allocated to one additional prover selected randomly from the global prover set. This ensures that network redundancy and efficiency are not compromised. The same economic structure applies to the fallback allocation as to the initial one. (For more details on rewards, visit the [Economics](fees.md) section.)
+
+If the fallback prover successfully generates the proof within the max compute time:&#x20;
+
+1. The requester gets back 50% of the fees as compensation for the delay in proving.
+2. The fallback prover receives regular rewards.&#x20;
+3. The initial prover gets kicked out of the prover set.&#x20;
+
+However, if the fallback prover also fails to generate the proof within the allocated time, all fees will be burned.&#x20;
 
 ### **Custom prover sets**
 
