@@ -13,6 +13,7 @@
 * [Prover/Verifier Integration](devnet/integration.md)
 * [Prover/Verifier Packaging](devnet/prover-verifier-packaging.md)
 * [Prover/Verifier Deployment](devnet/deployment.md)
+* [Dashboard](http://dashboard.gevulot.com/)
 
 ## Network
 

@@ -11,5 +11,5 @@ The devnet offers the following functionality:
 
 Devnet nodes are currently operated by [Supranational](https://www.supranational.net/), [P2P.org](https://p2p.org/), [Staking Facilities](https://stakingfacilities.com/) & [RockawayX Infrastructure.](https://rockawayx.com/infrastructure)\
 \
-**The Gevulot devnet is live.** [**Register a key**](https://docs.gevulot.com/gevulot-docs/devnet/key-registration) **to get access.**
+**The Gevulot devnet is live.** [**Register a key**](https://docs.gevulot.com/gevulot-docs/devnet/key-registration) **to get access or check out the** [**Dashboard**](http://dashboard.gevulot.com/)**.**
 
