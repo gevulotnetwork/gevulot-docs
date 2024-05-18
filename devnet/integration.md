@@ -57,7 +57,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 }
 
 // The main function that executes the prover program.
-fn run_task(task: &Task) -> Result<TaskResult, Box<dyn Error>> {
+fn run_task(task: Task) -> Result<TaskResult, Box<dyn Error>> {
     // Display program arguments we received. These could be used for
     // e.g. parsing CLI arguments with clap.
     println!("prover: task.args: {:?}", &task.args);
