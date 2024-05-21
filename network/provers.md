@@ -27,7 +27,8 @@ The Gevulot network features two distinct sets of provers designed to facilitate
 The Global Prover Set serves as the foundational layer within the network, where provers are initially integrated and assigned proving workloads. Participation in this primary prover set is governed by two key criteria to ensure security and equitable distribution of tasks:
 
 * **Prover staking:** Provers must stake an amount of native tokens to be eligible to participate in the set. This requirement serves as a security measure and ensures commitment to the network. The deposited stake will be locked for the entire duration of their active participation.&#x20;
-* **Proof of Workload completion:** Upon joining the network prover nodes need to complete designated proof of workload tasks. Successfully completing these tasks demonstrates that the prover's hardware meets the network's minimum requirements, thereby qualifying them for workload allocation.&#x20;
+* **Proof of Workload completion:** Upon joining the network prover nodes need to complete designated proof of workload tasks. Successfully completing these tasks demonstrates that the prover's hardware meets the network's minimum requirements, thereby qualifying them for workload allocation. \
+  In addition, all provers in the active prover set that have not completed a proving workload for more than 3 hours (assuming a network utilization of 70% or more) will also have to complete additional randomly assigned Proof of Workload tasks to verify that they are available and capable of generating proofs, failing which they will be removed from the prover set.
 
 A cooldown period is instituted for provers exiting the global prover set, during which their stakes remain locked to ensure network stability.
 

@@ -14,7 +14,7 @@ A highly decentralized network is one of the cornerstones to mitigate the risk o
 
 #### Prover capacity verification&#x20;
 
-All provers must meet specific minimum hardware requirements and are subject to an initial capacity verification when they join the network. This information is used to allocate proving workloads to provers with the prerequisite hardware to complete a workload. All provers in the active prover set will also have to complete additional randomly assigned workloads to verify that they are continuously available and capable of completing proving workloads, failing which they will be removed from the prover set.
+All provers must meet specific minimum hardware requirements and are subject to an initial capacity verification when they join the network. This information is used to allocate proving workloads to provers with the prerequisite hardware to complete a workload. All provers in the active prover set that have not completed a proving workload for more than 3 hours (assuming a network utilization of 70% or more) will also have to complete additional randomly assigned test workloads to verify that they are available and capable of generating proofs, failing which they will be removed from the prover set.
 
 To learn more about capacity verification, please visit the  “[Global prover set](provers.md#global-prover-set)” section of the docs.
 
