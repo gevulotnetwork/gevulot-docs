@@ -36,7 +36,7 @@ A cooldown period is instituted for provers exiting the global prover set, durin
 
 Workload allocation within both the global and custom prover sets utilizes a Verifiable Random Function (VRF) for fair and deterministic distribution. The system ensures diversity in workload assignment by excluding provers that participated in the previous round, thereby preventing overload and maintaining a balanced distribution of tasks.
 
-Every workload is allocated to one prover through the VRF. All provers need to accept or decline their assigned workloads, failing which they will be removed from the prover set.
+Every workload is allocated to one prover through the VRF. All provers need to accept or decline their assigned workloads, failing which they will be removed from the prover set after a timeout of 3 blocks.
 
 Provers can decline workloads when faced with capacity or bandwidth limitations. However, there is a limit to the number of workloads a prover can decline: at most one workload a week, or four workloads a month. Exceeding this limit will also result in being removed from the prover set.&#x20;
 
