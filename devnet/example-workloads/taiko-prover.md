@@ -1,6 +1,6 @@
 # Taiko Prover
 
-This guide will walk you through the steps necessary to run the Taiko prover on Gevulot.
+This guide will walk you through the steps necessary to run the Taiko prover on Gevulot. You can watch the demo video [here](https://youtu.be/rxAm-jyvRhU?si=UvWP3I0e7d7Hsqs1).
 
 ### The Witness
 
