@@ -2,7 +2,7 @@
 
 This guide will walk you through the steps necessary to run the Taiko prover on Gevulot. You can watch the demo video for a visual demonstration.
 
-{% embed url="https://www.youtube.com/watch?v=rxAm-jyvRhU" %}
+{% embed url="https://www.youtube.com/watch?v=rxAm-jyvRhU" fullWidth="false" %}
 
 ### The Witness
 
