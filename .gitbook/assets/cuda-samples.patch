@@ -1,0 +1,386 @@
+diff --git a/Samples/1_Utilities/deviceQuery/Makefile b/Samples/1_Utilities/deviceQuery/Makefile
+index c1f2ab45..bf45b49d 100644
+--- a/Samples/1_Utilities/deviceQuery/Makefile
++++ b/Samples/1_Utilities/deviceQuery/Makefile
+@@ -165,8 +165,8 @@ NVCC          := $(CUDA_PATH)/bin/nvcc -ccbin $(HOST_COMPILER)
+ 
+ # internal flags
+ NVCCFLAGS   := -m${TARGET_SIZE}
+-CCFLAGS     :=
+-LDFLAGS     :=
++CCFLAGS     := -I/build/gevulot/crates/shim-ffi
++LDFLAGS     := -L/build/gevulot/target/release -lgevulot_shim_ffi
+ 
+ # build flags
+ ifeq ($(TARGET_OS),darwin)
+diff --git a/Samples/1_Utilities/deviceQuery/deviceQuery.cpp b/Samples/1_Utilities/deviceQuery/deviceQuery.cpp
+index a6c46d54..92804bff 100644
+--- a/Samples/1_Utilities/deviceQuery/deviceQuery.cpp
++++ b/Samples/1_Utilities/deviceQuery/deviceQuery.cpp
+@@ -36,6 +36,15 @@
+ #include <iostream>
+ #include <memory>
+ #include <string>
++#include <cstdio>
++
++// Gevulot shim library.
++extern "C"  {
++  #include "shim.h"
++}
++
++void* compute(const struct Task* task);
++int orig_main(int argc, char **argv);
+ 
+ int *pArgc = NULL;
+ char **pArgv = NULL;
+@@ -66,13 +75,21 @@ inline void getCudaAttribute(T *attribute, CUdevice_attribute device_attribute,
+ ////////////////////////////////////////////////////////////////////////////////
+ // Program main
+ ////////////////////////////////////////////////////////////////////////////////
+-int main(int argc, char **argv) {
++int orig_main(int argc, char **argv) {
+   pArgc = &argc;
+   pArgv = argv;
+ 
++  FILE* fd = fopen("/workspace/gpu.txt", "w");
++  if (fd == NULL) {
++    perror("fopen(\"/workspace/gpu.txt\")");
++    exit(EXIT_FAILURE);
++  }
++
+   printf("%s Starting...\n\n", argv[0]);
+   printf(
+       " CUDA Device Query (Runtime API) version (CUDART static linking)\n\n");
++  fprintf(fd,
++      " CUDA Device Query (Runtime API) version (CUDART static linking)\n\n");
+ 
+   int deviceCount = 0;
+   cudaError_t error_id = cudaGetDeviceCount(&deviceCount);
+@@ -81,14 +98,20 @@ int main(int argc, char **argv) {
+     printf("cudaGetDeviceCount returned %d\n-> %s\n",
+            static_cast<int>(error_id), cudaGetErrorString(error_id));
+     printf("Result = FAIL\n");
++    fprintf(fd, "cudaGetDeviceCount returned %d\n-> %s\n",
++           static_cast<int>(error_id), cudaGetErrorString(error_id));
++    fprintf(fd, "Result = FAIL\n");
++    fclose(fd);
+     exit(EXIT_FAILURE);
+   }
+ 
+   // This function call returns 0 if there are no CUDA capable devices.
+   if (deviceCount == 0) {
+     printf("There are no available device(s) that support CUDA\n");
++    fprintf(fd, "There are no available device(s) that support CUDA\n");
+   } else {
+     printf("Detected %d CUDA Capable device(s)\n", deviceCount);
++    fprintf(fd, "There are no available device(s) that support CUDA\n");
+   }
+ 
+   int dev, driverVersion = 0, runtimeVersion = 0;
+@@ -99,6 +122,7 @@ int main(int argc, char **argv) {
+     cudaGetDeviceProperties(&deviceProp, dev);
+ 
+     printf("\nDevice %d: \"%s\"\n", dev, deviceProp.name);
++    fprintf(fd, "\nDevice %d: \"%s\"\n", dev, deviceProp.name);
+ 
+     // Console log
+     cudaDriverGetVersion(&driverVersion);
+@@ -108,6 +132,11 @@ int main(int argc, char **argv) {
+            runtimeVersion / 1000, (runtimeVersion % 100) / 10);
+     printf("  CUDA Capability Major/Minor version number:    %d.%d\n",
+            deviceProp.major, deviceProp.minor);
++    fprintf(fd, "  CUDA Driver Version / Runtime Version          %d.%d / %d.%d\n",
++           driverVersion / 1000, (driverVersion % 100) / 10,
++           runtimeVersion / 1000, (runtimeVersion % 100) / 10);
++    fprintf(fd, "  CUDA Capability Major/Minor version number:    %d.%d\n",
++           deviceProp.major, deviceProp.minor);
+ 
+     char msg[256];
+ #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
+@@ -124,16 +153,26 @@ int main(int argc, char **argv) {
+              (unsigned long long)deviceProp.totalGlobalMem);
+ #endif
+     printf("%s", msg);
++    fprintf(fd, "%s", msg);
+ 
+     printf("  (%03d) Multiprocessors, (%03d) CUDA Cores/MP:    %d CUDA Cores\n",
+            deviceProp.multiProcessorCount,
+            _ConvertSMVer2Cores(deviceProp.major, deviceProp.minor),
+            _ConvertSMVer2Cores(deviceProp.major, deviceProp.minor) *
+                deviceProp.multiProcessorCount);
++    fprintf(fd, "  (%03d) Multiprocessors, (%03d) CUDA Cores/MP:    %d CUDA Cores\n",
++           deviceProp.multiProcessorCount,
++           _ConvertSMVer2Cores(deviceProp.major, deviceProp.minor),
++           _ConvertSMVer2Cores(deviceProp.major, deviceProp.minor) *
++               deviceProp.multiProcessorCount);
+     printf(
+         "  GPU Max Clock rate:                            %.0f MHz (%0.2f "
+         "GHz)\n",
+         deviceProp.clockRate * 1e-3f, deviceProp.clockRate * 1e-6f);
++    fprintf(fd,
++        "  GPU Max Clock rate:                            %.0f MHz (%0.2f "
++        "GHz)\n",
++        deviceProp.clockRate * 1e-3f, deviceProp.clockRate * 1e-6f);
+ 
+ #if CUDART_VERSION >= 5000
+     // This is supported in CUDA 5.0 (runtime API device properties)
+@@ -141,10 +180,16 @@ int main(int argc, char **argv) {
+            deviceProp.memoryClockRate * 1e-3f);
+     printf("  Memory Bus Width:                              %d-bit\n",
+            deviceProp.memoryBusWidth);
++    fprintf(fd, "  Memory Clock rate:                             %.0f Mhz\n",
++           deviceProp.memoryClockRate * 1e-3f);
++    fprintf(fd, "  Memory Bus Width:                              %d-bit\n",
++           deviceProp.memoryBusWidth);
+ 
+     if (deviceProp.l2CacheSize) {
+       printf("  L2 Cache Size:                                 %d bytes\n",
+              deviceProp.l2CacheSize);
++      fprintf(fd, "  L2 Cache Size:                                 %d bytes\n",
++             deviceProp.l2CacheSize);
+     }
+ 
+ #else
+@@ -155,17 +200,23 @@ int main(int argc, char **argv) {
+                           dev);
+     printf("  Memory Clock rate:                             %.0f Mhz\n",
+            memoryClock * 1e-3f);
++    fprintf(fd, "  Memory Clock rate:                             %.0f Mhz\n",
++           memoryClock * 1e-3f);
+     int memBusWidth;
+     getCudaAttribute<int>(&memBusWidth,
+                           CU_DEVICE_ATTRIBUTE_GLOBAL_MEMORY_BUS_WIDTH, dev);
+     printf("  Memory Bus Width:                              %d-bit\n",
+            memBusWidth);
++    fprintf(fd, "  Memory Bus Width:                              %d-bit\n",
++           memBusWidth);
+     int L2CacheSize;
+     getCudaAttribute<int>(&L2CacheSize, CU_DEVICE_ATTRIBUTE_L2_CACHE_SIZE, dev);
+ 
+     if (L2CacheSize) {
+       printf("  L2 Cache Size:                                 %d bytes\n",
+              L2CacheSize);
++      fprintf(fd, "  L2 Cache Size:                                 %d bytes\n",
++             L2CacheSize);
+     }
+ 
+ #endif
+@@ -176,70 +227,137 @@ int main(int argc, char **argv) {
+         deviceProp.maxTexture1D, deviceProp.maxTexture2D[0],
+         deviceProp.maxTexture2D[1], deviceProp.maxTexture3D[0],
+         deviceProp.maxTexture3D[1], deviceProp.maxTexture3D[2]);
++    fprintf(fd,
++        "  Maximum Texture Dimension Size (x,y,z)         1D=(%d), 2D=(%d, "
++        "%d), 3D=(%d, %d, %d)\n",
++        deviceProp.maxTexture1D, deviceProp.maxTexture2D[0],
++        deviceProp.maxTexture2D[1], deviceProp.maxTexture3D[0],
++        deviceProp.maxTexture3D[1], deviceProp.maxTexture3D[2]);
+     printf(
+         "  Maximum Layered 1D Texture Size, (num) layers  1D=(%d), %d layers\n",
+         deviceProp.maxTexture1DLayered[0], deviceProp.maxTexture1DLayered[1]);
++    fprintf(fd,
++        "  Maximum Layered 1D Texture Size, (num) layers  1D=(%d), %d layers\n",
++        deviceProp.maxTexture1DLayered[0], deviceProp.maxTexture1DLayered[1]);
+     printf(
+         "  Maximum Layered 2D Texture Size, (num) layers  2D=(%d, %d), %d "
+         "layers\n",
+         deviceProp.maxTexture2DLayered[0], deviceProp.maxTexture2DLayered[1],
+         deviceProp.maxTexture2DLayered[2]);
++    fprintf(fd,
++        "  Maximum Layered 2D Texture Size, (num) layers  2D=(%d, %d), %d "
++        "layers\n",
++        deviceProp.maxTexture2DLayered[0], deviceProp.maxTexture2DLayered[1],
++        deviceProp.maxTexture2DLayered[2]);
+ 
+     printf("  Total amount of constant memory:               %zu bytes\n",
+            deviceProp.totalConstMem);
++    fprintf(fd, "  Total amount of constant memory:               %zu bytes\n",
++           deviceProp.totalConstMem);
+     printf("  Total amount of shared memory per block:       %zu bytes\n",
+            deviceProp.sharedMemPerBlock);
++    fprintf(fd, "  Total amount of shared memory per block:       %zu bytes\n",
++           deviceProp.sharedMemPerBlock);
+     printf("  Total shared memory per multiprocessor:        %zu bytes\n",
+            deviceProp.sharedMemPerMultiprocessor);
++    fprintf(fd, "  Total shared memory per multiprocessor:        %zu bytes\n",
++           deviceProp.sharedMemPerMultiprocessor);
+     printf("  Total number of registers available per block: %d\n",
+            deviceProp.regsPerBlock);
++    fprintf(fd, "  Total number of registers available per block: %d\n",
++           deviceProp.regsPerBlock);
+     printf("  Warp size:                                     %d\n",
+            deviceProp.warpSize);
++    fprintf(fd, "  Warp size:                                     %d\n",
++           deviceProp.warpSize);
+     printf("  Maximum number of threads per multiprocessor:  %d\n",
+            deviceProp.maxThreadsPerMultiProcessor);
++    fprintf(fd, "  Maximum number of threads per multiprocessor:  %d\n",
++           deviceProp.maxThreadsPerMultiProcessor);
+     printf("  Maximum number of threads per block:           %d\n",
+            deviceProp.maxThreadsPerBlock);
++    fprintf(fd, "  Maximum number of threads per block:           %d\n",
++           deviceProp.maxThreadsPerBlock);
+     printf("  Max dimension size of a thread block (x,y,z): (%d, %d, %d)\n",
+            deviceProp.maxThreadsDim[0], deviceProp.maxThreadsDim[1],
+            deviceProp.maxThreadsDim[2]);
++    fprintf(fd, "  Max dimension size of a thread block (x,y,z): (%d, %d, %d)\n",
++           deviceProp.maxThreadsDim[0], deviceProp.maxThreadsDim[1],
++           deviceProp.maxThreadsDim[2]);
+     printf("  Max dimension size of a grid size    (x,y,z): (%d, %d, %d)\n",
+            deviceProp.maxGridSize[0], deviceProp.maxGridSize[1],
+            deviceProp.maxGridSize[2]);
++    fprintf(fd, "  Max dimension size of a grid size    (x,y,z): (%d, %d, %d)\n",
++           deviceProp.maxGridSize[0], deviceProp.maxGridSize[1],
++           deviceProp.maxGridSize[2]);
+     printf("  Maximum memory pitch:                          %zu bytes\n",
+            deviceProp.memPitch);
++    fprintf(fd, "  Maximum memory pitch:                          %zu bytes\n",
++           deviceProp.memPitch);
+     printf("  Texture alignment:                             %zu bytes\n",
+            deviceProp.textureAlignment);
++    fprintf(fd, "  Texture alignment:                             %zu bytes\n",
++           deviceProp.textureAlignment);
+     printf(
+         "  Concurrent copy and kernel execution:          %s with %d copy "
+         "engine(s)\n",
+         (deviceProp.deviceOverlap ? "Yes" : "No"), deviceProp.asyncEngineCount);
++    fprintf(fd,
++        "  Concurrent copy and kernel execution:          %s with %d copy "
++        "engine(s)\n",
++        (deviceProp.deviceOverlap ? "Yes" : "No"), deviceProp.asyncEngineCount);
+     printf("  Run time limit on kernels:                     %s\n",
+            deviceProp.kernelExecTimeoutEnabled ? "Yes" : "No");
++    fprintf(fd, "  Run time limit on kernels:                     %s\n",
++           deviceProp.kernelExecTimeoutEnabled ? "Yes" : "No");
+     printf("  Integrated GPU sharing Host Memory:            %s\n",
+            deviceProp.integrated ? "Yes" : "No");
++    fprintf(fd, "  Integrated GPU sharing Host Memory:            %s\n",
++           deviceProp.integrated ? "Yes" : "No");
+     printf("  Support host page-locked memory mapping:       %s\n",
+            deviceProp.canMapHostMemory ? "Yes" : "No");
++    fprintf(fd, "  Support host page-locked memory mapping:       %s\n",
++           deviceProp.canMapHostMemory ? "Yes" : "No");
+     printf("  Alignment requirement for Surfaces:            %s\n",
+            deviceProp.surfaceAlignment ? "Yes" : "No");
++    fprintf(fd, "  Alignment requirement for Surfaces:            %s\n",
++           deviceProp.surfaceAlignment ? "Yes" : "No");
+     printf("  Device has ECC support:                        %s\n",
+            deviceProp.ECCEnabled ? "Enabled" : "Disabled");
++    fprintf(fd, "  Device has ECC support:                        %s\n",
++           deviceProp.ECCEnabled ? "Enabled" : "Disabled");
+ #if defined(WIN32) || defined(_WIN32) || defined(WIN64) || defined(_WIN64)
+     printf("  CUDA Device Driver Mode (TCC or WDDM):         %s\n",
+            deviceProp.tccDriver ? "TCC (Tesla Compute Cluster Driver)"
+                                 : "WDDM (Windows Display Driver Model)");
++    printf(fd, "  CUDA Device Driver Mode (TCC or WDDM):         %s\n",
++           deviceProp.tccDriver ? "TCC (Tesla Compute Cluster Driver)"
++                                : "WDDM (Windows Display Driver Model)");
+ #endif
+     printf("  Device supports Unified Addressing (UVA):      %s\n",
+            deviceProp.unifiedAddressing ? "Yes" : "No");
++    fprintf(fd, "  Device supports Unified Addressing (UVA):      %s\n",
++           deviceProp.unifiedAddressing ? "Yes" : "No");
+     printf("  Device supports Managed Memory:                %s\n",
+            deviceProp.managedMemory ? "Yes" : "No");
++    fprintf(fd, "  Device supports Managed Memory:                %s\n",
++           deviceProp.managedMemory ? "Yes" : "No");
+     printf("  Device supports Compute Preemption:            %s\n",
+            deviceProp.computePreemptionSupported ? "Yes" : "No");
++    fprintf(fd, "  Device supports Compute Preemption:            %s\n",
++           deviceProp.computePreemptionSupported ? "Yes" : "No");
+     printf("  Supports Cooperative Kernel Launch:            %s\n",
+            deviceProp.cooperativeLaunch ? "Yes" : "No");
++    fprintf(fd, "  Supports Cooperative Kernel Launch:            %s\n",
++           deviceProp.cooperativeLaunch ? "Yes" : "No");
+     printf("  Supports MultiDevice Co-op Kernel Launch:      %s\n",
+            deviceProp.cooperativeMultiDeviceLaunch ? "Yes" : "No");
++    fprintf(fd, "  Supports MultiDevice Co-op Kernel Launch:      %s\n",
++           deviceProp.cooperativeMultiDeviceLaunch ? "Yes" : "No");
+     printf("  Device PCI Domain ID / Bus ID / location ID:   %d / %d / %d\n",
+            deviceProp.pciDomainID, deviceProp.pciBusID, deviceProp.pciDeviceID);
++    fprintf(fd, "  Device PCI Domain ID / Bus ID / location ID:   %d / %d / %d\n",
++           deviceProp.pciDomainID, deviceProp.pciBusID, deviceProp.pciDeviceID);
+ 
+     const char *sComputeMode[] = {
+         "Default (multiple host threads can use ::cudaSetDevice() with device "
+@@ -253,6 +371,8 @@ int main(int argc, char **argv) {
+         "Unknown", NULL};
+     printf("  Compute Mode:\n");
+     printf("     < %s >\n", sComputeMode[deviceProp.computeMode]);
++    fprintf(fd, "  Compute Mode:\n");
++    fprintf(fd, "     < %s >\n", sComputeMode[deviceProp.computeMode]);
+   }
+ 
+   // If there are 2 or more GPUs, query to determine whether RDMA is supported
+@@ -291,6 +411,9 @@ int main(int argc, char **argv) {
+           printf("> Peer access from %s (GPU%d) -> %s (GPU%d) : %s\n",
+                  prop[gpuid[i]].name, gpuid[i], prop[gpuid[j]].name, gpuid[j],
+                  can_access_peer ? "Yes" : "No");
++          fprintf(fd, "> Peer access from %s (GPU%d) -> %s (GPU%d) : %s\n",
++                 prop[gpuid[i]].name, gpuid[i], prop[gpuid[j]].name, gpuid[j],
++                 can_access_peer ? "Yes" : "No");
+         }
+       }
+     }
+@@ -300,6 +423,7 @@ int main(int argc, char **argv) {
+   // *****************************
+   // exe and CUDA driver name
+   printf("\n");
++  fprintf(fd, "\n");
+   std::string sProfileString = "deviceQuery, CUDA Driver = CUDART";
+   char cTemp[16];
+ 
+@@ -335,9 +459,51 @@ int main(int argc, char **argv) {
+   sProfileString += cTemp;
+   sProfileString += "\n";
+   printf("%s", sProfileString.c_str());
++  fprintf(fd, "%s", sProfileString.c_str());
+ 
+   printf("Result = PASS\n");
++  fprintf(fd, "Result = PASS\n");
++  fclose(fd);
++
++  return EXIT_SUCCESS;
++}
+ 
+-  // finish
+-  exit(EXIT_SUCCESS);
++void* compute(const struct Task* task) {
++  if ((task == NULL) || (task->id == NULL)) {
++    return NULL;
++  }
++
++  printf("Received task with id: %s\n", task->id);
++  
++  printf("Args: \n");
++  const char ** args = (const char**)task->args;
++  int argc = 0;
++  while ((args != NULL) && (*args != NULL)) {
++    printf("\t%s\n", *args);
++    args++;
++    argc++;
++  }
++
++  printf("Files: \n");
++  const char **files = (const char**)task->files;
++  while ((files != NULL) && (*files != NULL)) {
++    printf("\t%s\n", *files);
++    files++;
++  }
++
++  int ret = orig_main(argc, (char**)task->args);
++  
++  printf("Done with the task. orig_main returned %d\n", ret);
++  
++  void *task_result = new_task_result(NULL, 0);
++  add_file_to_result(task_result, "/workspace/gpu.txt");
++  return task_result;
++}
++
++int main(int argc, char **argv) {
++  printf("Starting example cuda program in Gevulot...\n");
++  run(compute);
++  //orig_main(argc, argv);
++  printf("Example program finished. Terminating...\n");
++  return 0;
+ }
