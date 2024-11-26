@@ -12,7 +12,6 @@
   * [Tasks](firestarter/run-workloads/tasks.md)
   * [Workflows](firestarter/run-workloads/workflows.md)
 * [Deploy Provers](firestarter/deploy-provers/README.md)
-  * [Prover Development](firestarter/deploy-provers/prover-development.md)
   * [Prover Packaging](firestarter/deploy-provers/prover-packaging.md)
   * [Prover Deployment](firestarter/deploy-provers/prover-deployment.md)
 * [RPC API](firestarter/rpc-api/README.md)
