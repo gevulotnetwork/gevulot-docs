@@ -4,11 +4,11 @@ ZkCloud architecture is designed to enable performance equivalent to centralized
 
 ## Permissionless participation
 
-Decentralization is a key priority, thus anyone can join Gevulot as a validator or prover node without needing permission. This approach also decreases the risk of censorship in the network.
+Decentralization is a key priority, thus anyone can join ZkCloud as a validator or prover node without needing permission. This approach also decreases the risk of censorship in the network.
 
 ## Censorship resistance
 
-A highly decentralized network is one of the cornerstones to mitigate the risk of censorship, however, its true capacity to address censorship may be limited unless it is supported by the right prover selection algorithm. Auctions and pure proof-races may both be more susceptible to centralization through prover undercutting or resource-rich provers gaining dominance within the prover set. For this reason and to minimize the risk of censorship, Gevulot uses a Verifiable Random Function (VRF) for leader selection among the validators and workload distribution among the provers.
+A highly decentralized network is one of the cornerstones to mitigate the risk of censorship, however, its true capacity to address censorship may be limited unless it is supported by the right prover selection algorithm. Auctions and pure proof-races may both be more susceptible to centralization through prover undercutting or resource-rich provers gaining dominance within the prover set. For this reason and to minimize the risk of censorship, ZkCloud uses a Verifiable Random Function (VRF) for leader selection among the validators and workload distribution among the provers.
 
 ## Liveness guarantees
 
@@ -40,15 +40,15 @@ Users can customize and set increased redundancy by creating multiple workload r
 
 ## Optimized network performance
 
-The Gevulot network is exclusively optimized for zero-knowledge proving and verification. By removing all blockchain features that don’t serve this purpose, Gevulot achieves centralized-equivalent performance.&#x20;
+ZkCloud is exclusively optimized for zero-knowledge proving and verification. By removing all blockchain features that don’t serve this purpose, ZkCloud achieves centralized-equivalent performance.&#x20;
 
-Blocks on Gevulot include transactions and proofs. There is no traditional smart contract state and re-execution, and the verification of computation is done through validating zk-proofs.
+Blocks on ZkCloud include transactions as well as proving and verification results. There is no traditional smart contract state and re-execution, and the verification of computation is done through validating zk-proofs.
 
 ## Cost-efficient proving
 
-Gevulot aims to dramatically decrease the costs associated with proving. All aspects of the architecture and network roll-out are designed with this in mind. Firstly, all Gevulot prover nodes are run on-prem and the economics are designed to make running prover nodes in a cloud or even via server rental unprofitable over the long term. We estimate that on-prem setups are around 50% cheaper than cloud within some assumptions for cost of energy and bandwidth.\
+ZkCloud aims to dramatically decrease the costs associated with proving. All aspects of the architecture and network roll-out are designed with this in mind. Firstly, all ZkCloud prover nodes are run on-prem and the economics are designed to make running prover nodes in a cloud or even via server rental unprofitable over the long term. We estimate that on-prem setups are around 50% cheaper than cloud within some assumptions for cost of energy and bandwidth.\
 \
-Secondly, all prover nodes are sized to be able to run multiple provers and verifiers in parallel. Amortizing the cost of larger machines over more workloads leads directly to better cost-efficiency. Finally, Gevulot minimizes all other network-related costs. The blockchain is extremely minimal, hosting no smart contract state and including a minimal amount of possible operations.\
+Secondly, all prover nodes are sized to be able to run multiple provers and verifiers in parallel. Amortizing the cost of larger machines over more workloads leads directly to better cost-efficiency. Finally, ZkCloud minimizes all other network-related costs. The blockchain is extremely minimal, hosting no smart contract state and including a minimal amount of possible operations.\
 \
 All of these steps lead to significant cost-structure improvements when the network is at consistently near capacity. To ensure this is the case, the network architecture has been designed in a way which incentivizes the global prover set to grow when there is more demand than supply and shrink when there is more supply than demand. In other words, the network scales horizontally without increasing the cost structure.\
 \
