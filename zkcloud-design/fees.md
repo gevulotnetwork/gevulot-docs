@@ -4,7 +4,7 @@
 
 #### **Transaction fee**
 
-A transaction fee is applied to all types of transactions on Gevulot. It is a small, standard fee that mainly serves the purpose of spam protection.
+A transaction fee is applied to all types of transactions on ZkCloud. It is a small, standard fee that mainly serves the purpose of spam protection.
 
 #### **Proving workload fee**
 
@@ -38,7 +38,7 @@ Users can customize and increase redundancy by creating multiple workload reques
 
 #### **Verification fee**
 
-No verification fee applies for proofs generated through prover workloads in the Gevulot network. However, if a user deploys a standalone verifier program to verify proofs generated outside Gevulot, a small flat fee will be incurred.
+No additional fee is applicable for the verification of proofs generated in ZkCloud.
 
 ## Rewards
 
