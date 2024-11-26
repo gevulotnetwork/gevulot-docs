@@ -23,7 +23,7 @@ The fee is calculated based on the above parameters. The amount is locked in the
 **Fee Calculation:**&#x20;
 
 ```
-Tx Fee + (Compute Fee * Compute Time * Resource Requirement Multiplier)
+User Fee = Tx Fee + (Compute Fee * Compute Time * Resource Requirement Multiplier)
 ```
 
 Note: If the user-specified max compute time is too short, the program will not complete, the nodes will return a fail, and the fees will be burned.
@@ -38,27 +38,22 @@ No additional fee is applicable for the verification of proofs generated in ZkCl
 
 ## Rewards
 
-#### **Validator rewards**
+### **Validator rewards**
 
 Validators are rewarded via a traditional block reward and a small transaction fee paid by the users for all types of transactions.
 
-#### **Prover rewards**
+### **Prover rewards**
 
-After a workload is assigned to a prover, the network implements a fee structure that dynamically adjusts over time. As the prover works towards generating the required proof, the network deducts a small portion of the total fee, proportional to the elapsed time. This deduction is then returned to the user, effectively acting as a rebate on the initial fee.
+Validators are rewarded for proof generation and verification.
 
-After the proof is completed, the prover receives the remaining portion of the workload fee, calculated as follows:
+In the global prover set, the provers that complete the workload within max compute time and submit a valid proof earn an additional network reward. This reward is a fixed percentage of the user fee paid to the prover.
+
+**Rewards for proof verification**
+
+Provers are also incentivized to verify proofs (both valid or invalid) across the network. They receive a small reward for all pr~~o~~ofs on which all of the verifying provers agree.
+
+**Reward calculation:**
 
 ```
-Prover Reward = Workload Fee + Workload Subsidy
+Prover Reward = (Workload Fee + Network Reward) + Verification Rewards
 ```
-
-This approach incentivizes the provers to work as efficiently and quickly as possible to generate proofs. It applies consistently across all provers, whether they are part of the global or custom sets.
-
-In the global prover set, the provers that complete the workload within max compute time and submit a valid proof earn an additional network reward. This reward is a fixed percentage of the user fee paid to the prover, minus the fee discount. The network ensures that both the user fees and network rewards are fairly distributed among provers, based on the speed of their proof generation.
-
-#### **Verification rewards**
-
-Provers are also incentivized to verify proofs (both valid or invalid) across the network. They receive a small reward for all proofs on which all of the verifying provers agree.
-
-
-
