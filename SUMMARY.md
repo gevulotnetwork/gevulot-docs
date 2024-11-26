@@ -2,6 +2,26 @@
 
 * [Introduction](README.md)
 
+## Firestarter
+
+* [Overview](firestarter/overview.md)
+* [Get Started](firestarter/get-started/README.md)
+  * [Create Account](firestarter/get-started/create-account.md)
+  * [Purchase Credits](firestarter/get-started/purchase-credits.md)
+* [Run Workloads](firestarter/run-workloads/README.md)
+  * [Tasks](firestarter/run-workloads/tasks.md)
+  * [Workflows](firestarter/run-workloads/workflows.md)
+* [Deploy Provers](firestarter/deploy-provers/README.md)
+  * [Prover Development](firestarter/deploy-provers/prover-development.md)
+  * [Prover Packaging](firestarter/deploy-provers/prover-packaging.md)
+  * [Prover Deployment](firestarter/deploy-provers/prover-deployment.md)
+* [RPC API](firestarter/rpc-api/README.md)
+  * [gRPC](firestarter/rpc-api/grpc.md)
+  * [gevulot-rs](firestarter/rpc-api/gevulot-rs.md)
+* [Integrations](firestarter/integrations/README.md)
+  * [Polygon CDK](https://github.com/gevulotnetwork/zkevm-gevprover)
+* [Pricing](firestarter/pricing.md)
+
 ## DEVNET
 
 * [Overview](devnet/overview.md)
@@ -14,15 +34,14 @@
 * [Prover/Verifier Deployment](devnet/deployment.md)
 * [Dashboard](http://dashboard.gevulot.com/)
 
-## Network
+## ZkCloud Design
 
-* [Overview](network/overview.md)
-* [Prover/Verifier Programs](network/programs.md)
-* [Proving Workloads](network/transactions.md)
-* [Network Actors](network/provers.md)
-* [Economics](network/fees.md)
-* [Execution Guarantees](network/execution-guarantees.md)
-* [Roadmap](network/roadmap.md)
+* [Overview](zkcloud-design/overview.md)
+* [Prover/Verifier Programs](zkcloud-design/programs.md)
+* [Proving Workloads](zkcloud-design/transactions.md)
+* [Network Actors](zkcloud-design/provers.md)
+* [Economics](zkcloud-design/fees.md)
+* [Execution Guarantees](zkcloud-design/execution-guarantees.md)
 
 ## Usecases
 
@@ -40,6 +59,6 @@
 * [FAQ](misc/faq.md)
 * [Website](https://www.gevulot.com/)
 * [Github](https://github.com/gevulotnetwork)
-* [Twitter](https://twitter.com/gevulot\_network)
+* [Twitter](https://twitter.com/gevulot_network)
 * [Blog](https://blog.gevulot.com/)
 * [Telegram](https://t.me/gevulot)

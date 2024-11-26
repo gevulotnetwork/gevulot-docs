@@ -1,6 +1,10 @@
+---
+icon: hand-wave
+---
+
 # Introduction
 
-Gevulot is the first decentralised proving layer for the modular stack. It is designed to greatly decrease the cost of proving by aggregating workloads from across all use cases, allowing it to optimally utilize the underlying hardware. \
+Gevulot is the first universal proving layer for ZK. It is designed to greatly decrease the cost of proving by aggregating workloads from across all use cases, allowing it to optimally utilize the underlying hardware. \
 \
 The core value proposition of Gevulot can be summarized as follows:
 
@@ -10,6 +14,10 @@ The core value proposition of Gevulot can be summarized as follows:
 4. Permissionless
 5. Credibly neutral
 
-These docs describe the current network design and how to develop or interact with the network.
+These docs describe the current network design and how to develop or interact with the network.\
+\
+**Networks**
 
-**The Gevulot devnet is live and free to use. Get started by** [**registering a key.**](https://docs.gevulot.com/gevulot-docs/devnet/key-registration)
+**Gevulot Firestarter** - A production-ready, permissioned prover network available to be used today. See [here](broken-reference) for more details.
+
+**ZkCloud** - An in development permissionless network to be launched in 25Q1. Read about ZkCloud network design [here](broken-reference).
