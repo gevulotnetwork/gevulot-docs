@@ -8,16 +8,21 @@ Prover packaging on Gevulot Firestarter works by converting container image into
 * `sudo` rights (needed for disk image loopback mounts)
 * Install `gvltctl` from [releases](https://github.com/gevulotnetwork/gvltctl/releases)
 * Install following programs from your distributions package manager:
-  * build-essentials
+  * **Ubuntu:**
+    * build-essentials
+  * **Fedora:**
     * gcc
     * make
     * libtool
-    *
-  * git
-  * podman
-  * skopeo
-  * syslinux
-  * extlinux
+    * objtool
+    * flex
+    * bison
+    * kernel-devel
+    * git
+    * podman
+    * skopeo
+    * syslinux
+    * extlinux
 
 ## Runtime environment
 
