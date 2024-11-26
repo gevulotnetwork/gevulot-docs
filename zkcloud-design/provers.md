@@ -4,11 +4,11 @@
 
 **Validator set**
 
-Validators in Gevulot are responsible for ordering transactions and proofs into blocks and achieving consensus on replicated states, such as balances, transfers, staking, prover set, prover rewards, and program deployments. Gevulot strives to avoid replicated states whenever possible, enabling exceptional performance while minimizing hardware requirements for validators.
+Validators in ZkCloud are responsible for ordering transactions and proofs into blocks and achieving consensus on replicated states, such as balances, transfers, staking, prover set, prover rewards, and program deployments. ZkCloud strives to avoid replicated states whenever possible, enabling exceptional performance while minimizing hardware requirements for validators.
 
 #### **Participation**
 
-Participation in Gevulot’s validator set is permissionless, anyone can join the network. A Gevulot validator node requires modest hardware resources. Validators must deposit an amount of native tokens to participate in the network. The deposited stake will be locked for the entire duration of their active participation. Leaving the active validator set has a cooldown period before the stake can be unlocked.
+Participation in ZkCloud’s validator set is permissionless, anyone can join the network. A validator node requires modest hardware resources. Validators must deposit an amount of native tokens to participate in the network. The deposited stake will be locked for the entire duration of their active participation. Leaving the active validator set has a cooldown period before the stake can be unlocked.
 
 #### **Leader selection and block-building**
 
@@ -16,11 +16,11 @@ At every block, a leader is selected from the active validator set through a Ver
 
 #### **Consensus mechanism**
 
-To achieve consistent, high-performance, and secure state replication, Gevulot employs CometBFT as its consensus engine, which is based on the Tendermint consensus algorithm.
+To achieve consistent, high-performance, and secure state replication, ZkCloud employs CometBFT as its consensus engine, which is based on the Tendermint consensus algorithm.
 
 ## Provers
 
-The Gevulot network features two distinct sets of provers designed to facilitate proof generation and verification. The versatility of these sets allows for a wide range of use cases, empowering users to choose or integrate external software that best suits their operational needs. This approach eliminates the dependency on a universal, one-size-fits-all software solution across the network, thereby enhancing flexibility and user autonomy.&#x20;
+ZkCloud features two distinct sets of provers designed to facilitate proof generation and verification. The versatility of these sets allows for a wide range of use cases, empowering users to choose or integrate external software that best suits their operational needs. This approach eliminates the dependency on a universal, one-size-fits-all software solution across the network, thereby enhancing flexibility and user autonomy.&#x20;
 
 ### **Global prover set**
 
@@ -56,7 +56,7 @@ However, if the fallback prover also fails to generate the proof within the allo
 
 ### **Custom prover sets**
 
-Nested within the global prover set, custom prover sets enable a modular approach for data storage and allow the integration of distinct external software for various use cases. In short, they allow a deployer to define external software that prover nodes need to run alongside the Gevulot node to join the prover set.
+Nested within the global prover set, custom prover sets enable a modular approach for data storage and allow the integration of distinct external software for various use cases. In short, they allow a deployer to define external software that prover nodes need to run alongside the ZkCloud node to join the prover set.
 
 Custom prover sets significantly increase the system's flexibility and efficiency through several key benefits:
 

@@ -10,7 +10,7 @@ The lifecycle of proving workloads:
 4. The prover node completes the workload and sends the proof back to the mempool for verification. (The proof can already be shared with the user if, for instance, verification and settlement are done on Ethereum.)
 5. A certain number of randomly selected provers participate in the verification of the proof and vote on its correctness.
 6. Once all the prover nodes have verified the proof, the leader includes the proof in the next block.
-7. The proof reaches finality on Gevulot.
+7. The proof reaches finality on ZkCloud.
 
 #### **Submitting a proving workload**
 
@@ -35,7 +35,7 @@ The total number of verifier nodes, which are specific provers tasked with the v
 
 To maintain impartiality, the prover who computes the proof is excluded from the selected group of verifiers. Once all verifiers approve the proof, the leader includes it in the next block, and the proof is finalized.&#x20;
 
-The verification threshold constitutes finality from the network's perspective, but anyone can verify the proof for immediate use outside of the Gevulot network.
+The verification threshold constitutes finality from the network's perspective, but anyone can verify the proof for immediate use outside of the ZkCloud network.
 
 \
 \
