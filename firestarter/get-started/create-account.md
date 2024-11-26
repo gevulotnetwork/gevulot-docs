@@ -1,6 +1,6 @@
 # Create Account
 
-Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases).
+Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases).&#x20;
 
 Generate an account by
 
@@ -16,6 +16,4 @@ fantasy vicious elegant uphold issue trend dismiss length rough add cram key swi
 ```
 
 Store the mnemonic _securely_ for later use. In **no** circumstances you should lose or reveal the mnemonic to any outsider.
-
-[Henri Kamarainen](https://app.gitbook.com/u/WVNr4o4rVtUMfu1q1hhJgFEGrxm1 "mention")How to register the key?
 
