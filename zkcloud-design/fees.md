@@ -18,19 +18,15 @@ To submit a proving workload transaction to a specific prover program, the user 
 * Resource requirements for the prover workload.
 * Maximum compute time.
 
-The fee is calculated based on the above parameters. The amount is locked in the user’s balance until the workload is completed. Depending on the length of proof generation, the user may be subject to a fee rebate (see details below).
+The fee is calculated based on the above parameters. The amount is locked in the user’s balance until the workload is completed.
 
 **Fee Calculation:**&#x20;
 
 ```
-Tx Fee + (Compute Fee * Compute Time * Resource Requirement Multiplier - Fee Rebate)
+Tx Fee + (Compute Fee * Compute Time * Resource Requirement Multiplier)
 ```
 
 Note: If the user-specified max compute time is too short, the program will not complete, the nodes will return a fail, and the fees will be burned.
-
-#### **User fee rebate**
-
-After the workload has been broadcast to a prover, the network will gradually deduct a small portion of the fee proportional to the elapsed time, until the proof is generated. The remaining fee is paid to the prover as a reward, while the deducted portion is returned to the user as a fee rebate. This acts as a partial refund to the user for delays in proof calculation. Provers are incentivized to work efficiently to minimize rebates, improving the overall speed and reliability of the system.&#x20;
 
 #### **Customizable redundancy**
 
@@ -50,10 +46,10 @@ Validators are rewarded via a traditional block reward and a small transaction f
 
 After a workload is assigned to a prover, the network implements a fee structure that dynamically adjusts over time. As the prover works towards generating the required proof, the network deducts a small portion of the total fee, proportional to the elapsed time. This deduction is then returned to the user, effectively acting as a rebate on the initial fee.
 
-After the proof is completed and verified within the mempool, the prover receives the remaining portion of the workload fee, calculated as follows:
+After the proof is completed, the prover receives the remaining portion of the workload fee, calculated as follows:
 
 ```
-Prover Reward = Workload Fee - Fee Rebate
+Prover Reward = Workload Fee + Workload Subsidy
 ```
 
 This approach incentivizes the provers to work as efficiently and quickly as possible to generate proofs. It applies consistently across all provers, whether they are part of the global or custom sets.
