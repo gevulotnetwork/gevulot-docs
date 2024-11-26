@@ -1,6 +1,6 @@
 # Execution Guarantees
 
-The Gevulot architecture is designed to enable performance equivalent to centralized systems while ensuring maximum liveness, availability, and execution guarantees, and minimizing the risk of censorship.
+ZkCloud architecture is designed to enable performance equivalent to centralized systems while ensuring maximum liveness, availability, and execution guarantees, and minimizing the risk of censorship.
 
 ## Permissionless participation
 
