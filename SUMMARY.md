@@ -21,18 +21,6 @@
   * [Polygon CDK](https://github.com/gevulotnetwork/zkevm-gevprover)
 * [Pricing](firestarter/pricing.md)
 
-## DEVNET
-
-* [Overview](devnet/overview.md)
-* [Key Registration](devnet/key-registration.md)
-* [JSON-RPC](devnet/json-rpc.md)
-* [Example Workloads](devnet/example-workloads/README.md)
-  * [Taiko Prover](devnet/example-workloads/taiko-prover.md)
-* [Prover/Verifier Integration](devnet/integration.md)
-* [Prover/Verifier Packaging](devnet/prover-verifier-packaging.md)
-* [Prover/Verifier Deployment](devnet/deployment.md)
-* [Dashboard](http://dashboard.gevulot.com/)
-
 ## ZkCloud Design
 
 * [Overview](zkcloud-design/overview.md)
