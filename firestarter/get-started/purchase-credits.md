@@ -1,5 +1,5 @@
 # Purchase Credits
 
-Credits are used to pay for compute fees on Firestarter. To purchase Credits, first [register a key](create-account.md).\
+Credits are used to pay for compute fees on Firestarter. To purchase Credits, first [create an account](create-account.md).\
 \
-Once you have a key registered, you can purchase Credits from [gevulot.com](https://gevulot.com). One (1) Credit is worth one (1) dollar.
+Once you have a key registered, head over to [gevulot.com](https://www.gevulot.com/pricing) and follow the instructions to purchase your credits.&#x20;
