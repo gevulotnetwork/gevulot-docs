@@ -17,8 +17,7 @@
 * [RPC API](firestarter/rpc-api/README.md)
   * [gRPC](firestarter/rpc-api/grpc.md)
   * [gevulot-rs](firestarter/rpc-api/gevulot-rs.md)
-* [Integrations](firestarter/integrations/README.md)
-  * [Polygon CDK](https://github.com/gevulotnetwork/zkevm-gevprover)
+* [Integrations](firestarter/integrations.md)
 * [Pricing](firestarter/pricing.md)
 
 ## ZkCloud Design
