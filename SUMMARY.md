@@ -17,7 +17,10 @@
 * [RPC API](firestarter/rpc-api/README.md)
   * [gRPC](firestarter/rpc-api/grpc.md)
   * [gevulot-rs](firestarter/rpc-api/gevulot-rs.md)
-* [Integrations](firestarter/integrations.md)
+* [Integrations](firestarter/integrations/README.md)
+  * [Zk Stack](firestarter/integrations/zk-stack.md)
+  * [Polygon CDK](firestarter/integrations/polygon-cdk.md)
+  * [Scroll SDK](firestarter/integrations/scroll-sdk.md)
 * [Pricing](firestarter/pricing.md)
 
 ## ZkCloud Design
