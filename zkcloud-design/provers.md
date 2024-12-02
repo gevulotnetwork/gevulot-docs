@@ -8,7 +8,7 @@ Validators in ZkCloud are responsible for ordering transactions and proofs into 
 
 #### **Participation**
 
-Participation in ZkCloud’s validator set is permissionless, anyone can join the network. A validator node requires modest hardware resources. Validators must deposit an amount of native tokens to participate in the network. The deposited stake will be locked for the entire duration of their active participation. Leaving the active validator set has a cooldown period before the stake can be unlocked.
+Participation in ZkCloud’s validator set is permissionless, anyone can join the network. A validator node requires modest hardware resources. Validators must deposit a certain amount of native tokens to participate in the network. The deposited stake will be locked for the entire duration of their active participation. Leaving the active validator set has a cooldown period before the stake can be unlocked.
 
 #### **Leader selection and block-building**
 
@@ -20,15 +20,15 @@ To achieve consistent, high-performance, and secure state replication, ZkCloud e
 
 ## Provers
 
-ZkCloud features two distinct sets of provers designed to facilitate proof generation and verification. The versatility of these sets allows for a wide range of use cases, empowering users to choose or integrate external software that best suits their operational needs. This approach eliminates the dependency on a universal, one-size-fits-all software solution across the network, thereby enhancing flexibility and user autonomy.&#x20;
+ZkCloud features two distinct sets of provers designed to facilitate proof generation and verification. This allows for a wide range of use cases and also empowers users to choose or integrate external software that best suits their operational needs. This approach eliminates the dependency on a universal, one-size-fits-all software solution across the network, thereby enhancing flexibility and user autonomy.&#x20;
 
 ### **Global prover set**
 
 The Global Prover Set serves as the foundational layer within the network, where provers are initially integrated and assigned proving workloads. Participation in this primary prover set is governed by two key criteria to ensure security and equitable distribution of tasks:
 
-* **Prover staking:** Provers must stake an amount of native tokens to be eligible to participate in the set. This requirement serves as a security measure and ensures commitment to the network. The deposited stake will be locked for the entire duration of their active participation.&#x20;
-* **Proof of Workload completion:** Upon joining the network prover nodes need to complete designated proof of workload tasks. Successfully completing these tasks demonstrates that the prover's hardware meets the network's minimum requirements, thereby qualifying them for workload allocation. \
-  In addition, all provers in the active prover set that have not completed a proving workload for more than 3 hours (assuming a network utilization of 70% or more) will also have to complete additional randomly assigned Proof of Workload tasks to verify that they are available and capable of generating proofs, failing which they will be removed from the prover set.
+* **Prover staking:** Provers must stake a certain amount of native tokens to be eligible to participate in the set. This requirement serves as a security measure and ensures commitment to the network. The deposited stake will be locked for the entire duration of their active participation.&#x20;
+* **Proof of Workload completion:** Upon joining the network prover nodes need to complete designated proof of workload tasks. The successful completion of these tasks demonstrates that the prover's hardware meets the network's minimum requirements, thereby qualifying them for workload allocation. \
+  In addition, all provers in the active prover set that have not completed a proving workload for more than 3 hours (assuming a network utilization of 70% or more) will also have to complete additional randomly assigned proof of workload tasks to verify that they are available and capable of generating proofs, failing which they will be removed from the prover set.
 
 A cooldown period is instituted for provers exiting the global prover set, during which their stakes remain locked to ensure network stability.
 
@@ -36,7 +36,7 @@ A cooldown period is instituted for provers exiting the global prover set, durin
 
 Workload allocation within both the global and custom prover sets utilizes a Verifiable Random Function (VRF) for fair and deterministic distribution. The system ensures diversity in workload assignment by excluding provers that participated in the previous round, thereby preventing overload and maintaining a balanced distribution of tasks.
 
-Every workload is allocated to one prover through the VRF. All provers need to accept or decline their assigned workloads, failing which they will be removed from the prover set after a timeout of 3 blocks.
+Every workload is allocated to one prover through the VRF. All provers need to explicitly accept or decline their assigned workloads, failing which they will be removed from the prover set after a timeout of 3 blocks.
 
 Provers can decline workloads when faced with capacity or bandwidth limitations. However, there is a limit to the number of workloads a prover can decline: at most one workload a week, or four workloads a month. Exceeding this limit will also result in being removed from the prover set.&#x20;
 
@@ -86,6 +86,6 @@ Within custom prover sets, proof pricing is set by the deployer of the prover pr
 
 However, users have the option to deploy distinct provers with unique pricing where participation can be restricted to specific nodes. This provides the opportunity to develop more flexible pricing strategies that cater to diverse needs and circumstances.
 
-To prevent potential disparities, such as proprietary provers offering proofs at no cost or at rates lower than those of open-source counterparts, a standardized minimum cost is enforced across the network. This prevents any single entity from skewing the pricing dynamics, ensuring equitable and sustainable operation within the network.
+To prevent potential disparities, such as proprietary provers offering proofs at no cost or rates lower than those of open-source counterparts, a standardized minimum cost is enforced across the network. This prevents any single entity from skewing the pricing dynamics, ensuring equitable and sustainable operation within the network.
 
 \

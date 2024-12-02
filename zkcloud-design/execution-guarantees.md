@@ -50,7 +50,7 @@ ZkCloud aims to dramatically decrease the costs associated with proving. All asp
 \
 Secondly, all prover nodes are sized to be able to run multiple provers and verifiers in parallel. Amortizing the cost of larger machines over more workloads leads directly to better cost-efficiency. Finally, ZkCloud minimizes all other network-related costs. The blockchain is extremely minimal, hosting no smart contract state and including a minimal amount of possible operations.\
 \
-All of these steps lead to significant cost-structure improvements when the network is at consistently near capacity. To ensure this is the case, the network architecture has been designed in a way which incentivizes the global prover set to grow when there is more demand than supply and shrink when there is more supply than demand. In other words, the network scales horizontally without increasing the cost structure.\
+All of these steps lead to significant cost-structure improvements when the network is consistently near capacity. To ensure this is the case, the network architecture has been designed in a way that incentivizes the global prover set to grow when there is more demand than supply and shrink when there is more supply than demand. In other words, the network scales horizontally without increasing the cost structure.\
 \
 As demand grows, the network also begins to enjoy economies of scale, incentivizing larger-scale optimization efforts. The network essentially functions as a global search algorithm for the cheapest compute, energy, and bandwidth and passes those savings onto the user.
 

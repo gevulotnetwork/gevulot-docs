@@ -7,10 +7,12 @@ The lifecycle of proving workloads:
 1. The user sends a `Run` transaction to the network specifying the information necessary to execute a proving workload.
 2. The receiving node adds the transaction to the mempool for inclusion in the next block.
 3. Once the transaction has been included in a block by the leader and finalized, it is randomly allocated to a prover node.
-4. The prover node completes the workload and sends the proof back to the mempool for verification. (The proof can already be shared with the user if, for instance, verification and settlement are done on Ethereum.)
-5. A certain number of randomly selected provers participate in the verification of the proof and vote on its correctness.
-6. Once all the prover nodes have verified the proof, the leader includes the proof in the next block.
-7. The proof reaches finality on ZkCloud.
+4. The prover node completes the workload and sends the proof back to the mempool for verification. (The proof can already be shared with the user if, for instance, verification and settlement are done elsewhere. The user does not need to wait for workload finalization on ZkCloud.)
+5. A subset of prover nodes, selected randomly, participate in the verification of the proof, and vote on its validity.
+6. Once all the prover nodes have verified the proof, the leader includes the verification results in the next block.
+7. The proving workload reaches finality on ZkCloud, and the rewards are distributed to the prover node.
+
+<figure><img src="../.gitbook/assets/Proving workload lifecycle (1).png" alt=""><figcaption></figcaption></figure>
 
 #### **Submitting a proving workload**
 

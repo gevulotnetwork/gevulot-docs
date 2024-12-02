@@ -26,7 +26,7 @@ Prover packaging on Gevulot Firestarter works by converting container image into
 
 ## Runtime environment
 
-The VM image contains Linux kernel, Gevulot specific init and the container image file tree that is passed for the `gvltctl build` command.
+The VM image contains the Linux kernel, Gevulot-specific init, and the container image file tree that is passed for the `gvltctl build` command.
 
 All the input files are mounted read-only under `/mnt/gevulot/input` which is the only allowed location for files passed in `Task` `inputContexts`.
 
@@ -34,7 +34,7 @@ All the output files are mounted read-write under `/mnt/gevulot/output` which is
 
 ## Package CPU-only prover
 
-First step is to ensure that the prover either has pre-built container image or a working Containerfile/Dockerfile that can be used to build the container image.
+The first step is to ensure that the prover either has a pre-built container image or a working Containerfile/Dockerfile that can be used to build the container image.
 
 ### Container image
 
@@ -53,12 +53,12 @@ Building a VM image from a Containerfile works similarly:
 
 **NOTE:** For now, only nVidia GPUs are supported.
 
-The GPU accelerated prover packaging is nearly the same as CPU-only, but there are couple additional requirements:
+The GPU-accelerated prover packaging is nearly the same as CPU-only, but there are a couple of additional requirements:
 
-* The source container must have all nVidia runtime libraries present. This is easiest to achieve by using official `docker.io/nvidia/cuda` as base image. As or writing, the latest runtime tag is [`12.6.2-runtime-ubuntu24.04`](https://gitlab.com/nvidia/container-images/cuda/blob/master/dist/12.6.2/ubuntu2404/runtime/Dockerfile)
+* The source container must have all nVidia runtime libraries present. This is easiest to achieve by using the official `docker.io/nvidia/cuda` as the base image. As of writing, the latest runtime tag is [`12.6.2-runtime-ubuntu24.04`](https://gitlab.com/nvidia/container-images/cuda/blob/master/dist/12.6.2/ubuntu2404/runtime/Dockerfile)
 * `--nvidia-drivers` argument specified for `gvltctl build` - this will build nVidia GPU drivers to the VM image, matching the installed kernel
 
-Building the VM image is simply:
+Building the VM image is simple:
 
 `gvltctl build --container containers-storage:localhost/my_gpu_prover:latest --nvidia-drivers -s 2G -o gpu_prover.img`
 
@@ -66,7 +66,7 @@ fo
 
 ## Advanced options for VM image
 
-The `gvltctl build` provides flexible options for customizing the VM image if advanced tuning is needed for some reason. This is not advisable however, unless you really know what you are doing.
+The `gvltctl build` provides flexible options for customizing the VM image if advanced tuning is needed for some reason. This is not advisable, however, unless you really know what you are doing.
 
 For further information: Refer to `gvltctl build --help` and respective source code for [gvltctl](https://github.com/gevulotnetwork/gvltctl) and [mia](https://github.com/gevulotnetwork/mia).
 
