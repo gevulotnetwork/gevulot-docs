@@ -46,7 +46,7 @@ spec:
 
 ```
 
-The task can be submitted using `gvltctl.` Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases).&#x20;
+The task can be submitted using `gvltctl.` Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases/latest).&#x20;
 
 `gvltctl task create -e "$GEVULOT_ENDPOINT" -n "$GEVULOT_MNEMONIC" -f task.yaml`
 

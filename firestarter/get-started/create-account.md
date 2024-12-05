@@ -1,6 +1,6 @@
 # Create Account
 
-Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases).&#x20;
+Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases/latest).&#x20;
 
 Generate an account by
 
