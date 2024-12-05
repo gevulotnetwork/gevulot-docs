@@ -1,6 +1,6 @@
 # Prover Packaging
 
-Prover packaging on Gevulot Firestarter works by converting container image into a Linux-based VM image. Any program that can run in a container, can run on Gevulot Firestarter.
+Prover packaging on Firestarter works by converting container image into a Linux-based VM image. Any program that can run in a container, can run on Firestarter.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ Prover packaging on Gevulot Firestarter works by converting container image into
 
 ## Runtime environment
 
-The VM image contains the Linux kernel, Gevulot-specific init, and the container image file tree that is passed for the `gvltctl build` command.
+The VM image contains the Linux kernel, Firestarter-specific init, and the container image file tree that is passed for the `gvltctl build` command.
 
 All the input files are mounted read-only under `/mnt/gevulot/input` which is the only allowed location for files passed in `Task` `inputContexts`.
 
