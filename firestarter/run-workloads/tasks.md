@@ -1,16 +1,16 @@
 # Tasks
 
-[Task](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/task.proto#L9-L61) is the basic building block for a program execution on Gevulot. It contains the URL or CID of the program image, the command to execute in VM and the program arguments. It also has fields for defining input and output files for the program.
+A [Task](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/task.proto#L9-L61) is the basic building block for a program execution on Firestarter. It contains the URL or CID of the program image, the command to execute in VM and the program arguments. It also has fields for defining the input and output files for the program.
 
-Task specific input files are specified as [inputContexts](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/util.proto#L12-L15) where the `source` field contains either a URL or a Gevulot private IPFS network CID.\
+Task specific input files are specified as [inputContexts](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/util.proto#L12-L15) where the `source` field contains either a URL or a Firestarter private IPFS network CID.\
 \
 Input context `target` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/input`
 
-Task specific output files are specified as [outputContexts](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/util.proto#L17-L20) where the `source` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/output`. `retentionPeriod` value species how long the file is kept live in the Gevulot network. Unit of `retentionPeriod` is seconds.
+Task specific output files are specified as [outputContexts](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/util.proto#L17-L20) where the `source` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/output`. `retentionPeriod` value species how long the file is kept live in the Gevulot network. Unit of `retentionPeriod` is seconds. In general `900` (15 minutes) is a good default.
 
 ## Example
 
-Here is a Hello World example task that reads a text input file from an HTTP URL, prints it and write system's CPU & RAM information into output file.
+Here is a Hello World example task that reads a text input file from an HTTP URL, prints it and writes the system's CPU & RAM information into the output file.
 
 ```yaml
 kind: Task
@@ -46,11 +46,11 @@ spec:
 
 ```
 
-The task can be submitted using `gvltctl`
+The task can be submitted using `gvltctl.` Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases).&#x20;
 
 `gvltctl task create -e "$GEVULOT_ENDPOINT" -n "$GEVULOT_MNEMONIC" -f task.yaml`
 
-The `gvltctl` will then submit a transaction that allocates dedicated worker for the task on-chain. The output looks roughly as following:
+The `gvltctl` will then submit a transaction that allocates a dedicated worker for the task on-chain. The output looks roughly as follows:
 
 ```
 Create task from file task.yaml
@@ -59,7 +59,7 @@ status: success
 task_id: e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
 ```
 
-You can use `gvltctl task get` to fetch latest version of task (with the [status](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/task.proto#L31-L61) field):
+You can use `gvltctl task get` to fetch the latest version of a task (with the [status](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/task.proto#L31-L61) field):
 
 ```
 $ gvltctl task get e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
@@ -120,9 +120,9 @@ In the example above, the task was already executed.
 
 ### Task outputs
 
-Task has always `stdout` and `stderr` output stored in Gevulot private IPFS network, if the respective `storeStdout` and `storeStderr` are set to `true`. If the task had `outputContexts` specified, the corresponding CIDs can be found from the `status` part as well. The resulting CIDs in `status.outputContexts` are in the same order as specified in the `spec.outputContexts`.
+Taske always have `stdout` and `stderr` output stored in the Firestarter private IPFS network, if the respective `storeStdout` and `storeStderr` are set to `true`. If the task has `outputContexts` specified, the corresponding CIDs can be found from the `status` part as well. The resulting CIDs in `status.outputContexts` are in the same order as specified in the `spec.outputContexts`.
 
-In the above example, the output file produced by the program can be accessed through read-only IPFS gateway at `https://data.firestarter.gevulot.com/ipfs`
+In the above example, the output file produced by the program can be accessed through a read-only IPFS gateway at `https://data.firestarter.gevulot.com/ipfs`
 
 For example above output file can be fetched with:\
 `​curl https://data.firestarter.gevulot.com/ipfs/QmfF7B77SF1ehLrohzphWj8YtpXLJ4biGFqJjW6sjPTUNe`
