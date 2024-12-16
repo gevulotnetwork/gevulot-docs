@@ -22,7 +22,8 @@
   * [Polygon CDK](firestarter/integrations/polygon-cdk.md)
   * [Scroll SDK](firestarter/integrations/scroll-sdk.md)
 * [Pricing](firestarter/pricing.md)
-* [Firestarter Dev AI](https://chatgpt.com/g/g-67596090c318819196009fa79ebf8568-firestarter-development-assistant)
+* [Firestarter AI](https://chatgpt.com/g/g-67596090c318819196009fa79ebf8568-firestarter-development-assistant)
+* [Firestarter Explorer](https://testnet.ping.pub/firestarter)
 
 ## ZkCloud Design
 
