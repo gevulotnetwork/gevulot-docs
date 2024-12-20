@@ -18,6 +18,6 @@ These docs describe the current network design and how to develop or interact wi
 \
 **Networks**
 
-**Gevulot Firestarter** - A production-ready, permissioned prover network available to be used today. See [here](broken-reference) for more details.
+**Gevulot Firestarter** - A production-ready, permissioned prover network available to be used today. See [here](https://docs.gevulot.com/gevulot-docs/firestarter/overview) for more details.
 
-**ZkCloud** - An in development permissionless network to be launched in 25Q1. Read about ZkCloud network design [here](broken-reference).
+**ZkCloud** - An in development permissionless network to be launched in 25Q1. Read about ZkCloud network design [here](https://docs.gevulot.com/gevulot-docs/zkcloud-design/overview).
