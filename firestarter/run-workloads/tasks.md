@@ -8,15 +8,15 @@ Input context `target` specifies the file path in the program VM. Its prefix **m
 
 Task specific output files are specified as [outputContexts](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/util.proto#L17-L20) where the `source` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/output`. `retentionPeriod` value species how long the file is kept live in the Gevulot network. Unit of `retentionPeriod` is seconds. In general `900` (15 minutes) is a good default.
 
-### Task spec compute units
+## Task spec compute units
 
-#### CPUs
+### CPUs
 
 Number of full CPUs.
 
 e.g. 3 CPU cores -> `cpus: 3`
 
-#### Memory
+### Memory
 
 Number of megabytes reserved for the task.
 
@@ -24,7 +24,7 @@ e.g. 32GB -> `memory: 32768`
 
 **NOTE:** Due to platform orchestration overhead, the Task memory requirement cannot be the same as the maximum amount of RAM on the worker node. Current implementation allocates 10% extra and 64MB at minimum for the extra overhead required. This is subject to change as we optimize the system.
 
-#### GPUs
+### GPUs
 
 Number of full GPUs.
 
