@@ -12,23 +12,34 @@ Task specific output files are specified as [outputContexts](https://docs.rs/gev
 
 ### CPUs
 
-Number of full CPUs.
+Number of CPUs may be specified as raw number or as a string with unit suffix. List of available units:
 
-e.g. 3 CPU cores -> `cpus: 3`
+- `cpu`, `cpus`
+- `core`, `cores`
+- `mcpu`, `mcpus`
+- `millicpu`, `millicpus`
+- `mcore`, `mcores`
+- `millicore`, `millicores`
+
+e.g. 3 CPU cores -> `cpus: 3` or `cpus: 3 cpu` or `cpus: 3000 mcores`
 
 ### Memory
 
-Number of megabytes reserved for the task.
+Amount of memory reserved for the task may be specified as a raw number in bytes or as a string with unit suffix (e.g., B, Kb, Kib, Mb, Mib, Gb, Gib).
 
-e.g. 32GB -> `memory: 32768`
+e.g. 32GB -> `memory: 32000000` or `memory: 32GB`
 
 **NOTE:** Due to platform orchestration overhead, the Task memory requirement cannot be the same as the maximum amount of RAM on the worker node. Current implementation allocates 10% extra and 64MB at minimum for the extra overhead required. This is subject to change as we optimize the system.
 
 ### GPUs
 
-Number of full GPUs.
+Number of GPUs may be specified as raw number or as a string with unit suffix. List of available units:
 
-e.g. 1 GPU -> `gpus: 1`
+- `gpu`, `gpus`
+- `mgpu`, `mgpus`
+- `milligpu`, `milligpus`
+
+e.g. 1 GPU -> `gpus: 1` or `gpus: 1 gpu` or `gpus: 1000 milligpus`
 
 ## Example
 
@@ -61,10 +72,10 @@ spec:
   storeStdout: true
   storeStderr: true
   resources:
-    cpus: 1
+    cpus: 1cpu
     gpus: 0
-    memory: 512
-    time: 120
+    memory: 512MB
+    time: 120s
 
 ```
 
@@ -116,7 +127,7 @@ spec:
   resources:
     cpus: 1
     gpus: 0
-    memory: 512
+    memory: 512000000
     time: 120
   storeStdout: true
   storeStderr: true
