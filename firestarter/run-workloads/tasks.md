@@ -1,12 +1,12 @@
 # Tasks
 
-A [Task](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/task.proto#L9-L61) is the basic building block for a program execution on Firestarter. It contains the URL or CID of the program image, the command to execute in VM and the program arguments. It also has fields for defining the input and output files for the program.
+A [Task](https://docs.rs/gevulot-rs/latest/gevulot_rs/models/struct.Task.html) is the basic building block for a program execution on Firestarter. It contains the URL or CID of the program image, the command to execute in VM and the program arguments. It also has fields for defining the input and output files for the program.
 
-Task specific input files are specified as [inputContexts](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/util.proto#L12-L15) where the `source` field contains either a URL or a Firestarter private IPFS network CID.\
+Task specific input files are specified as [inputContexts](https://docs.rs/gevulot-rs/latest/gevulot_rs/models/struct.InputContext.html) where the `source` field contains either a URL or a Firestarter private IPFS network CID.\
 \
-Input context `target` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/input`
+Input context `target` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/input`.
 
-Task specific output files are specified as [outputContexts](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/util.proto#L17-L20) where the `source` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/output`. `retentionPeriod` value species how long the file is kept live in the Gevulot network. Unit of `retentionPeriod` is seconds. In general `900` (15 minutes) is a good default.
+Task specific output files are specified as [outputContexts](https://docs.rs/gevulot-rs/latest/gevulot_rs/models/struct.OutputContext.html) where the `source` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/output`. `retentionPeriod` value species how long the file is kept live in the Gevulot network. Unit of `retentionPeriod` is seconds. In general `900` (15 minutes) is a good default.
 
 ## Task spec compute units
 
@@ -81,7 +81,7 @@ status: success
 task_id: e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
 ```
 
-You can use `gvltctl task get` to fetch the latest version of a task (with the [status](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/task.proto#L31-L61) field):
+You can use `gvltctl task get` to fetch the latest version of a task (with the [status](https://docs.rs/gevulot-rs/latest/gevulot_rs/models/struct.TaskStatus.html) field):
 
 ```
 $ gvltctl task get e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
