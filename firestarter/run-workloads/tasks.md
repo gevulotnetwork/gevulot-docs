@@ -79,7 +79,7 @@ spec:
 
 ```
 
-The task can be submitted using `gvltctl.` Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases/latest).&#x20;
+The task can be submitted using `gvltctl`. Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases/latest).&#x20;
 
 `gvltctl task create -e "$GEVULOT_ENDPOINT" -n "$GEVULOT_MNEMONIC" -f task.yaml`
 
@@ -95,7 +95,7 @@ task_id: e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
 You can use `gvltctl task get` to fetch the latest version of a task (with the [status](https://docs.rs/gevulot-rs/latest/gevulot_rs/models/struct.TaskStatus.html) field):
 
 ```
-$ gvltctl task get e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
+$ gvltctl task get -e "$GEVULOT_ENDPOINT" e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
 kind: Task
 version: v0
 metadata:
