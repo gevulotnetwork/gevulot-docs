@@ -4,12 +4,11 @@ Prover packaging on Firestarter works by converting container image into a Linux
 
 ## Prerequisites
 
-* Linux as a host machine
-* `sudo` rights (needed for disk image loopback mounts)
+* Linux or MacOS as a host machine
 * Install `gvltctl` from [releases](https://github.com/gevulotnetwork/gvltctl/releases/latest)
 * Install following programs from your distributions package manager:
   * **Ubuntu:**
-    * build-essentials
+    * `git build-essential libncurses-dev gawk flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf llvm bc ca-certificates podman`
   * **Fedora:**
     * gcc
     * make
@@ -20,9 +19,6 @@ Prover packaging on Firestarter works by converting container image into a Linux
     * kernel-devel
     * git
     * podman
-    * skopeo
-    * syslinux
-    * extlinux
 
 ## Runtime environment
 
