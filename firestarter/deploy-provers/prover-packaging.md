@@ -4,12 +4,11 @@ Prover packaging on Firestarter works by converting container image into a Linux
 
 ## Prerequisites
 
-* Linux as a host machine
-* `sudo` rights (needed for disk image loopback mounts)
-* Install `gvltctl` from [releases](https://github.com/gevulotnetwork/gvltctl/releases)
+* Linux or MacOS as a host machine
+* Install `gvltctl` from [releases](https://github.com/gevulotnetwork/gvltctl/releases/latest)
 * Install following programs from your distributions package manager:
   * **Ubuntu:**
-    * build-essentials
+    * `git build-essential libncurses-dev gawk flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf llvm bc ca-certificates podman`
   * **Fedora:**
     * gcc
     * make
@@ -20,9 +19,6 @@ Prover packaging on Firestarter works by converting container image into a Linux
     * kernel-devel
     * git
     * podman
-    * skopeo
-    * syslinux
-    * extlinux
 
 ## Runtime environment
 
@@ -39,15 +35,17 @@ The first step is to ensure that the prover either has a pre-built container ima
 ### Container image
 
 Once the prover works in the container, then it can be packaged into a VM image:\
-`gvltctl build --container containers-storage:localhost/my_prover:latest -s 250M -o prover.img`
+`gvltctl build --container containers-storage:localhost/my_prover:latest -o prover.img`
 
-That command uses container image build with _podman_ locally and packages it into a VM image with 250MB disk.
+That command uses container image build with _podman_ locally and packages it into a VM image.
+
+**NOTE:** This command will build Linux kernel from sources, which may take significant amount of time on small machines.
 
 ### Containerfile
 
 Building a VM image from a Containerfile works similarly:
 
-`gvltctl build --containerfile Containerfile -s 250M -o prover.img`
+`gvltctl build --containerfile Containerfile -o prover.img`
 
 ## Package GPU accelerated prover
 
@@ -60,9 +58,7 @@ The GPU-accelerated prover packaging is nearly the same as CPU-only, but there a
 
 Building the VM image is simple:
 
-`gvltctl build --container containers-storage:localhost/my_gpu_prover:latest --nvidia-drivers -s 2G -o gpu_prover.img`
-
-fo
+`gvltctl build --container containers-storage:localhost/my_gpu_prover:latest --nvidia-drivers -o gpu_prover.img`
 
 ## Advanced options for VM image
 
