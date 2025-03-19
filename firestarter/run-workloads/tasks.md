@@ -1,34 +1,45 @@
 # Tasks
 
-A [Task](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/task.proto#L9-L61) is the basic building block for a program execution on Firestarter. It contains the URL or CID of the program image, the command to execute in VM and the program arguments. It also has fields for defining the input and output files for the program.
+A [Task](https://docs.rs/gevulot-rs/latest/gevulot_rs/models/struct.Task.html) is the basic building block for a program execution on Firestarter. It contains the URL or CID of the program image, the command to execute in VM and the program arguments. It also has fields for defining the input and output files for the program.
 
-Task specific input files are specified as [inputContexts](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/util.proto#L12-L15) where the `source` field contains either a URL or a Firestarter private IPFS network CID.\
+Task specific input files are specified as [inputContexts](https://docs.rs/gevulot-rs/latest/gevulot_rs/models/struct.InputContext.html) where the `source` field contains either a URL or a Firestarter private IPFS network CID.\
 \
-Input context `target` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/input`
+Input context `target` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/input`.
 
-Task specific output files are specified as [outputContexts](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/util.proto#L17-L20) where the `source` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/output`. `retentionPeriod` value species how long the file is kept live in the Gevulot network. Unit of `retentionPeriod` is seconds. In general `900` (15 minutes) is a good default.
+Task specific output files are specified as [outputContexts](https://docs.rs/gevulot-rs/latest/gevulot_rs/models/struct.OutputContext.html) where the `source` specifies the file path in the program VM. Its prefix **must** always be `/mnt/gevulot/output`. `retentionPeriod` value species how long the file is kept live in the Gevulot network. Unit of `retentionPeriod` is seconds. In general `900` (15 minutes) is a good default.
 
-### Task spec compute units
+## Task spec compute units
 
-#### CPUs
+### CPUs
 
-Number of full CPUs.
+Number of CPUs may be specified as raw number or as a string with unit suffix. List of available units:
 
-e.g. 3 CPU cores -> `cpus: 3`
+- `cpu`, `cpus`
+- `core`, `cores`
+- `mcpu`, `mcpus`
+- `millicpu`, `millicpus`
+- `mcore`, `mcores`
+- `millicore`, `millicores`
 
-#### Memory
+e.g. 3 CPU cores -> `cpus: 3` or `cpus: 3 cpu` or `cpus: 3000 mcores`
 
-Number of megabytes reserved for the task.
+### Memory
 
-e.g. 32GB -> `memory: 32768`
+Amount of memory reserved for the task may be specified as a raw number in bytes or as a string with unit suffix (e.g., B, Kb, Kib, Mb, Mib, Gb, Gib).
+
+e.g. 32GB -> `memory: 32000000` or `memory: 32GB`
 
 **NOTE:** Due to platform orchestration overhead, the Task memory requirement cannot be the same as the maximum amount of RAM on the worker node. Current implementation allocates 10% extra and 64MB at minimum for the extra overhead required. This is subject to change as we optimize the system.
 
-#### GPUs
+### GPUs
 
-Number of full GPUs.
+Number of GPUs may be specified as raw number or as a string with unit suffix. List of available units:
 
-e.g. 1 GPU -> `gpus: 1`
+- `gpu`, `gpus`
+- `mgpu`, `mgpus`
+- `milligpu`, `milligpus`
+
+e.g. 1 GPU -> `gpus: 1` or `gpus: 1 gpu` or `gpus: 1000 milligpus`
 
 ## Example
 
@@ -61,14 +72,14 @@ spec:
   storeStdout: true
   storeStderr: true
   resources:
-    cpus: 1
+    cpus: 1cpu
     gpus: 0
-    memory: 512
-    time: 120
+    memory: 512MB
+    time: 120s
 
 ```
 
-The task can be submitted using `gvltctl.` Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases/latest).&#x20;
+The task can be submitted using `gvltctl`. Install the latest `gvltctl` tool from [releases](https://github.com/gevulotnetwork/gvltctl/releases/latest).&#x20;
 
 `gvltctl task create -e "$GEVULOT_ENDPOINT" -n "$GEVULOT_MNEMONIC" -f task.yaml`
 
@@ -81,10 +92,10 @@ status: success
 task_id: e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
 ```
 
-You can use `gvltctl task get` to fetch the latest version of a task (with the [status](https://github.com/gevulotnetwork/gevulot-rs/blob/main/proto/gevulot/gevulot/task.proto#L31-L61) field):
+You can use `gvltctl task get` to fetch the latest version of a task (with the [status](https://docs.rs/gevulot-rs/latest/gevulot_rs/models/struct.TaskStatus.html) field):
 
 ```
-$ gvltctl task get e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
+$ gvltctl task get -e "$GEVULOT_ENDPOINT" e870966891918f11f192ccbc383d65a2a39ce5a3e62a82955cb12a06f7972831
 kind: Task
 version: v0
 metadata:
@@ -116,7 +127,7 @@ spec:
   resources:
     cpus: 1
     gpus: 0
-    memory: 512
+    memory: 512000000
     time: 120
   storeStdout: true
   storeStderr: true
